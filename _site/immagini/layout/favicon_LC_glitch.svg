@@ -1,0 +1,238 @@
+
+<style>
+@keyframes glitch1 {
+  0%,100% { transform: translate(0,0); opacity:1; }
+  10% { transform: translate(-4px, 1px); opacity:0.8; }
+  20% { transform: translate(3px,-2px); opacity:1; }
+  30% { transform: translate(0,0); }
+  60% { transform: translate(-6px,0); opacity:0.7; }
+  61% { transform: translate(6px,0); opacity:1; }
+  62% { transform: translate(0,0); }
+  85% { transform: translate(2px,-1px); opacity:0.9; }
+  86% { transform: translate(0,0); opacity:1; }
+}
+@keyframes glitch2 {
+  0%,100% { transform: translate(0,0); opacity:0; }
+  10% { transform: translate(6px,0); opacity:0.5; }
+  11% { transform: translate(0,0); opacity:0; }
+  60% { transform: translate(-8px,2px); opacity:0.4; }
+  62% { transform: translate(0,0); opacity:0; }
+  85% { transform: translate(5px,-2px); opacity:0.35; }
+  87% { transform: translate(0,0); opacity:0; }
+}
+@keyframes glitch3 {
+  0%,100% { transform: translate(0,0); opacity:0; }
+  10% { transform: translate(-5px,0); opacity:0.4; }
+  11% { transform: translate(0,0); opacity:0; }
+  60% { transform: translate(7px,-1px); opacity:0.3; }
+  62% { transform: translate(0,0); opacity:0; }
+}
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(400px); }
+}
+@keyframes flicker {
+  0%,100% { opacity:1; }
+  92% { opacity:1; }
+  93% { opacity:0.85; }
+  94% { opacity:1; }
+  96% { opacity:0.9; }
+  97% { opacity:1; }
+}
+@keyframes noise {
+  0%,100% { clip-path: inset(0 0 95% 0); }
+  10% { clip-path: inset(30% 0 50% 0); }
+  20% { clip-path: inset(10% 0 80% 0); }
+  30% { clip-path: inset(60% 0 20% 0); }
+  40% { clip-path: inset(5% 0 90% 0); }
+  50% { clip-path: inset(45% 0 40% 0); }
+  60% { clip-path: inset(70% 0 15% 0); }
+  70% { clip-path: inset(20% 0 65% 0); }
+  80% { clip-path: inset(85% 0 5% 0); }
+  90% { clip-path: inset(35% 0 55% 0); }
+}
+
+.logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 30px;
+  background: #000;
+  border-radius: 16px;
+}
+
+.glitch-box {
+  width: 300px;
+  height: 300px;
+  background: #000;
+  border: 1px solid #0ff3;
+  border-radius: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  animation: flicker 4s infinite;
+}
+
+.scanline {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: rgba(0,255,255,0.07);
+  animation: scanline 2.5s linear infinite;
+  pointer-events: none;
+}
+
+.lines-overlay {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.18) 3px,
+    rgba(0,0,0,0.18) 4px
+  );
+  pointer-events: none;
+  border-radius: 48px;
+}
+
+.lc-base {
+  font-family: 'Courier New', monospace;
+  font-size: 140px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -4px;
+  position: relative;
+  animation: glitch1 3.5s infinite;
+  line-height: 1;
+}
+.lc-cyan {
+  position: absolute;
+  inset: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 140px;
+  font-weight: 900;
+  color: #0ff;
+  letter-spacing: -4px;
+  animation: glitch2 3.5s infinite;
+  line-height: 1;
+  mix-blend-mode: screen;
+}
+.lc-magenta {
+  position: absolute;
+  inset: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 140px;
+  font-weight: 900;
+  color: #f0f;
+  letter-spacing: -4px;
+  animation: glitch3 3.5s infinite;
+  line-height: 1;
+  mix-blend-mode: screen;
+}
+.lc-noise {
+  position: absolute;
+  inset: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 140px;
+  font-weight: 900;
+  color: #0ff;
+  letter-spacing: -4px;
+  line-height: 1;
+  animation: noise 0.4s steps(1) infinite;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+
+.text-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.corner {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-color: #0ff;
+  border-style: solid;
+  opacity: 0.5;
+}
+.corner.tl { top: 18px; left: 18px; border-width: 2px 0 0 2px; }
+.corner.tr { top: 18px; right: 18px; border-width: 2px 2px 0 0; }
+.corner.bl { bottom: 18px; left: 18px; border-width: 0 0 2px 2px; }
+.corner.br { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
+
+.preview-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+  align-items: flex-end;
+}
+.prev-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.prev-box {
+  background: #000;
+  border: 1px solid #0ff3;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: -1px 0 #0ff, 1px 0 #f0f;
+  animation: glitch1 3.5s infinite;
+}
+.prev-label {
+  font-family: monospace;
+  font-size: 11px;
+  color: #0ff8;
+}
+</style>
+
+<div class="logo-wrap">
+  <div class="glitch-box">
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+    <div class="scanline"></div>
+    <div class="lines-overlay"></div>
+    <div class="text-container">
+      <div style="position:relative;">
+        <div class="lc-base">LC</div>
+        <div class="lc-cyan">LC</div>
+        <div class="lc-magenta">LC</div>
+        <div class="lc-noise">LC</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-row">
+    <div class="prev-item">
+      <div class="prev-box" style="width:64px;height:64px;font-size:34px;letter-spacing:-2px;">LC</div>
+      <span class="prev-label">64px</span>
+    </div>
+    <div class="prev-item">
+      <div class="prev-box" style="width:44px;height:44px;font-size:23px;letter-spacing:-1px;border-radius:7px;">LC</div>
+      <span class="prev-label">44px</span>
+    </div>
+    <div class="prev-item">
+      <div class="prev-box" style="width:32px;height:32px;font-size:17px;letter-spacing:-1px;border-radius:5px;">LC</div>
+      <span class="prev-label">32px</span>
+    </div>
+    <div class="prev-item">
+      <div class="prev-box" style="width:20px;height:20px;font-size:10px;letter-spacing:0px;border-radius:3px;">LC</div>
+      <span class="prev-label">16px</span>
+    </div>
+  </div>
+</div>

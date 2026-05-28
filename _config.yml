@@ -1,0 +1,52 @@
+# =============================================
+# Configurazione Jekyll — Lorenzo Capicchioni Art
+# =============================================
+
+# --- Identità del sito ---
+title: "Lorenzo Capicchioni"
+description: "Artist. Paintings, drawings, and video works."
+url: "https://www.lorenzocapicchioniart.com"
+baseurl: ""
+
+# Immagine di default per Open Graph e Twitter Cards
+image: "/immagini/layout/social-preview.webp"
+
+# --- Autore ---
+author:
+  name: "Lorenzo Capicchioni"
+  email: "studio@lorenzocapicchioniart.com"
+
+# --- Collezioni ---
+collections:
+  schede:
+    output: true
+    permalink: /opere/:path/
+
+# --- Defaults per le schede ---
+defaults:
+  - scope:
+      path: ""
+      type: "schede"
+    values:
+      layout: "opera"
+
+# --- Lingua ---
+lang: "en"
+
+# --- Build ---
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Escludi file non necessari dal build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules/
+  - .git/
+  - .DS_Store
+
+# --- Plugin (minimi, solo built-in) ---
+plugins:
+  - jekyll-seo-tag

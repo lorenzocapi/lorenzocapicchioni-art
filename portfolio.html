@@ -1,0 +1,37 @@
+---
+layout: default
+title: Portfolio
+---
+
+<section class="portfolio">
+
+<div class="portfolio-grid">
+
+{% assign schede_ordinate = site.schede | sort: "year" | reverse %}
+
+{% for scheda in schede_ordinate %}
+
+<a
+href="{{ scheda.url }}"
+class="portfolio-card">
+
+<img
+class="portfolio-thumb"
+src="{{ scheda.cover }}"
+alt="{{ scheda.alt }}">
+
+<div class="portfolio-meta">
+
+<h2>{{ scheda.title }}</h2>
+
+<span>{{ scheda.year }}</span>
+
+</div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+</section>

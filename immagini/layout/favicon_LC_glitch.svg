@@ -1,238 +1,242 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <filter id="stamp" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="turbulence" baseFrequency="0.038" numOctaves="4" seed="12" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.8" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+      <feMorphology in="displaced" operator="erode" radius="0.5" result="eroded"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="5" result="grain"/>
+      <feComposite in="eroded" in2="grain" operator="in"/>
+    </filter>
+    <clipPath id="circleClip">
+      <circle cx="200" cy="200" r="184"/>
+    </clipPath>
+  </defs>
 
-<style>
-@keyframes glitch1 {
-  0%,100% { transform: translate(0,0); opacity:1; }
-  10% { transform: translate(-4px, 1px); opacity:0.8; }
-  20% { transform: translate(3px,-2px); opacity:1; }
-  30% { transform: translate(0,0); }
-  60% { transform: translate(-6px,0); opacity:0.7; }
-  61% { transform: translate(6px,0); opacity:1; }
-  62% { transform: translate(0,0); }
-  85% { transform: translate(2px,-1px); opacity:0.9; }
-  86% { transform: translate(0,0); opacity:1; }
-}
-@keyframes glitch2 {
-  0%,100% { transform: translate(0,0); opacity:0; }
-  10% { transform: translate(6px,0); opacity:0.5; }
-  11% { transform: translate(0,0); opacity:0; }
-  60% { transform: translate(-8px,2px); opacity:0.4; }
-  62% { transform: translate(0,0); opacity:0; }
-  85% { transform: translate(5px,-2px); opacity:0.35; }
-  87% { transform: translate(0,0); opacity:0; }
-}
-@keyframes glitch3 {
-  0%,100% { transform: translate(0,0); opacity:0; }
-  10% { transform: translate(-5px,0); opacity:0.4; }
-  11% { transform: translate(0,0); opacity:0; }
-  60% { transform: translate(7px,-1px); opacity:0.3; }
-  62% { transform: translate(0,0); opacity:0; }
-}
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(400px); }
-}
-@keyframes flicker {
-  0%,100% { opacity:1; }
-  92% { opacity:1; }
-  93% { opacity:0.85; }
-  94% { opacity:1; }
-  96% { opacity:0.9; }
-  97% { opacity:1; }
-}
-@keyframes noise {
-  0%,100% { clip-path: inset(0 0 95% 0); }
-  10% { clip-path: inset(30% 0 50% 0); }
-  20% { clip-path: inset(10% 0 80% 0); }
-  30% { clip-path: inset(60% 0 20% 0); }
-  40% { clip-path: inset(5% 0 90% 0); }
-  50% { clip-path: inset(45% 0 40% 0); }
-  60% { clip-path: inset(70% 0 15% 0); }
-  70% { clip-path: inset(20% 0 65% 0); }
-  80% { clip-path: inset(85% 0 5% 0); }
-  90% { clip-path: inset(35% 0 55% 0); }
-}
+  <rect width="400" height="400" fill="#0f0f0f"/>
+  <circle cx="200" cy="200" r="186" fill="#1a1a1a"/>
 
-.logo-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 0 30px;
-  background: #000;
-  border-radius: 16px;
-}
+  <g filter="url(#stamp)">
 
-.glitch-box {
-  width: 300px;
-  height: 300px;
-  background: #000;
-  border: 1px solid #0ff3;
-  border-radius: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  animation: flicker 4s infinite;
-}
+    <!-- unico cerchio esterno -->
+    <circle cx="200" cy="200" r="185" fill="none" stroke="#ede8dc" stroke-width="9"/>
 
-.scanline {
-  position: absolute;
-  left: 0; right: 0;
-  height: 2px;
-  background: rgba(0,255,255,0.07);
-  animation: scanline 2.5s linear infinite;
-  pointer-events: none;
-}
+    <!-- ============================================================ -->
+    <!-- PATTERN MAYA xicalcoliuhqui: greche angolari a L             -->
+    <!-- direttamente appoggiate al cerchio, senza anelli extra       -->
+    <!-- 24 moduli, alternati specchiati, su r~170                   -->
+    <!-- ============================================================ -->
+    <g fill="#ede8dc" clip-path="url(#circleClip)">
 
-.lines-overlay {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0,0,0,0.18) 3px,
-    rgba(0,0,0,0.18) 4px
-  );
-  pointer-events: none;
-  border-radius: 48px;
-}
+      <!-- modulo A: greca verso destra -->
+      <!-- modulo B: greca verso sinistra (specchiata) -->
+      <!-- alternati ogni 15° -->
 
-.lc-base {
-  font-family: 'Courier New', monospace;
-  font-size: 140px;
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: -4px;
-  position: relative;
-  animation: glitch1 3.5s infinite;
-  line-height: 1;
-}
-.lc-cyan {
-  position: absolute;
-  inset: 0;
-  font-family: 'Courier New', monospace;
-  font-size: 140px;
-  font-weight: 900;
-  color: #0ff;
-  letter-spacing: -4px;
-  animation: glitch2 3.5s infinite;
-  line-height: 1;
-  mix-blend-mode: screen;
-}
-.lc-magenta {
-  position: absolute;
-  inset: 0;
-  font-family: 'Courier New', monospace;
-  font-size: 140px;
-  font-weight: 900;
-  color: #f0f;
-  letter-spacing: -4px;
-  animation: glitch3 3.5s infinite;
-  line-height: 1;
-  mix-blend-mode: screen;
-}
-.lc-noise {
-  position: absolute;
-  inset: 0;
-  font-family: 'Courier New', monospace;
-  font-size: 140px;
-  font-weight: 900;
-  color: #0ff;
-  letter-spacing: -4px;
-  line-height: 1;
-  animation: noise 0.4s steps(1) infinite;
-  opacity: 0.6;
-  mix-blend-mode: screen;
-}
+      <g transform="rotate(0 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(15 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(30 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(45 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(60 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(75 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(90 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(105 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(120 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(135 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(150 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(165 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(180 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(195 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(210 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(225 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(240 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(255 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(270 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(285 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(300 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(315 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(330 200 200)">
+        <rect x="194" y="18" width="5" height="16"/>
+        <rect x="194" y="18" width="14" height="5"/>
+        <rect x="203" y="23" width="5" height="11"/>
+        <rect x="197" y="29" width="11" height="5"/>
+      </g>
+      <g transform="rotate(345 200 200)">
+        <rect x="201" y="18" width="5" height="16"/>
+        <rect x="192" y="18" width="14" height="5"/>
+        <rect x="192" y="23" width="5" height="11"/>
+        <rect x="192" y="29" width="11" height="5"/>
+      </g>
 
-.text-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
+    </g>
 
-.corner {
-  position: absolute;
-  width: 12px; height: 12px;
-  border-color: #0ff;
-  border-style: solid;
-  opacity: 0.5;
-}
-.corner.tl { top: 18px; left: 18px; border-width: 2px 0 0 2px; }
-.corner.tr { top: 18px; right: 18px; border-width: 2px 2px 0 0; }
-.corner.bl { bottom: 18px; left: 18px; border-width: 0 0 2px 2px; }
-.corner.br { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
+    <!-- SOLE -->
+    <g fill="#ede8dc" stroke="#ede8dc" stroke-linecap="round">
+      <circle cx="200" cy="88" r="13" fill="none" stroke="#ede8dc" stroke-width="6"/>
+      <circle cx="200" cy="88" r="4.5" fill="#ede8dc"/>
+      <line x1="200" y1="68" x2="200" y2="61" stroke-width="5"/>
+      <line x1="200" y1="108" x2="200" y2="115" stroke-width="5"/>
+      <line x1="180" y1="88" x2="173" y2="88" stroke-width="5"/>
+      <line x1="220" y1="88" x2="227" y2="88" stroke-width="5"/>
+      <line x1="186" y1="74" x2="181" y2="69" stroke-width="4.5"/>
+      <line x1="214" y1="74" x2="219" y2="69" stroke-width="4.5"/>
+      <line x1="186" y1="102" x2="181" y2="107" stroke-width="4.5"/>
+      <line x1="214" y1="102" x2="219" y2="107" stroke-width="4.5"/>
+    </g>
 
-.preview-row {
-  display: flex;
-  gap: 24px;
-  margin-top: 28px;
-  align-items: flex-end;
-}
-.prev-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-.prev-box {
-  background: #000;
-  border: 1px solid #0ff3;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Courier New', monospace;
-  font-weight: 900;
-  color: #fff;
-  text-shadow: -1px 0 #0ff, 1px 0 #f0f;
-  animation: glitch1 3.5s infinite;
-}
-.prev-label {
-  font-family: monospace;
-  font-size: 11px;
-  color: #0ff8;
-}
-</style>
+    <!-- TORRE -->
+    <g fill="#ede8dc">
+      <rect x="108" y="258" width="184" height="20" rx="2"/>
+      <rect x="120" y="236" width="160" height="24" rx="2"/>
+      <rect x="134" y="214" width="132" height="24" rx="2"/>
+      <rect x="148" y="193" width="104" height="23" rx="2"/>
+      <rect x="161" y="173" width="78" height="22" rx="2"/>
+      <rect x="174" y="154" width="52" height="21" rx="2"/>
+      <rect x="183" y="132" width="34" height="24" rx="2"/>
+      <polygon points="179,132 200,114 221,132"/>
+      <rect x="192" y="141" width="16" height="15" rx="1" fill="#1a1a1a"/>
+      <rect x="192" y="154" width="16" height="21" fill="#1a1a1a"/>
+      <rect x="192" y="173" width="16" height="22" fill="#1a1a1a"/>
+      <rect x="192" y="193" width="16" height="23" fill="#1a1a1a"/>
+      <rect x="192" y="214" width="16" height="24" fill="#1a1a1a"/>
+      <rect x="192" y="236" width="16" height="24" fill="#1a1a1a"/>
+      <rect x="132" y="241" width="13" height="13" rx="1" fill="#1a1a1a"/>
+      <rect x="255" y="241" width="13" height="13" rx="1" fill="#1a1a1a"/>
+      <rect x="145" y="219" width="11" height="11" rx="1" fill="#1a1a1a"/>
+      <rect x="244" y="219" width="11" height="11" rx="1" fill="#1a1a1a"/>
+      <rect x="158" y="198" width="10" height="10" rx="1" fill="#1a1a1a"/>
+      <rect x="232" y="198" width="10" height="10" rx="1" fill="#1a1a1a"/>
+      <rect x="170" y="178" width="9" height="9" rx="1" fill="#1a1a1a"/>
+      <rect x="221" y="178" width="9" height="9" rx="1" fill="#1a1a1a"/>
+    </g>
 
-<div class="logo-wrap">
-  <div class="glitch-box">
-    <div class="corner tl"></div>
-    <div class="corner tr"></div>
-    <div class="corner bl"></div>
-    <div class="corner br"></div>
-    <div class="scanline"></div>
-    <div class="lines-overlay"></div>
-    <div class="text-container">
-      <div style="position:relative;">
-        <div class="lc-base">LC</div>
-        <div class="lc-cyan">LC</div>
-        <div class="lc-magenta">LC</div>
-        <div class="lc-noise">LC</div>
-      </div>
-    </div>
-  </div>
+    <!-- L -->
+    <text x="76" y="232" font-family="'Courier New', Courier, monospace"
+          font-size="92" font-weight="900" fill="#ede8dc" text-anchor="middle">L</text>
 
-  <div class="preview-row">
-    <div class="prev-item">
-      <div class="prev-box" style="width:64px;height:64px;font-size:34px;letter-spacing:-2px;">LC</div>
-      <span class="prev-label">64px</span>
-    </div>
-    <div class="prev-item">
-      <div class="prev-box" style="width:44px;height:44px;font-size:23px;letter-spacing:-1px;border-radius:7px;">LC</div>
-      <span class="prev-label">44px</span>
-    </div>
-    <div class="prev-item">
-      <div class="prev-box" style="width:32px;height:32px;font-size:17px;letter-spacing:-1px;border-radius:5px;">LC</div>
-      <span class="prev-label">32px</span>
-    </div>
-    <div class="prev-item">
-      <div class="prev-box" style="width:20px;height:20px;font-size:10px;letter-spacing:0px;border-radius:3px;">LC</div>
-      <span class="prev-label">16px</span>
-    </div>
-  </div>
-</div>
+    <!-- C -->
+    <text x="324" y="232" font-family="'Courier New', Courier, monospace"
+          font-size="92" font-weight="900" fill="#ede8dc" text-anchor="middle">C</text>
+
+    <!-- linea sopra ART -->
+    <line x1="156" y1="291" x2="244" y2="291" stroke="#ede8dc" stroke-width="4" stroke-linecap="square"/>
+
+    <!-- ART -->
+    <text x="200" y="313" font-family="'Courier New', Courier, monospace"
+          font-size="22" font-weight="900" fill="#ede8dc" text-anchor="middle"
+          letter-spacing="13">ART</text>
+
+    <!-- linea sotto ART -->
+    <line x1="156" y1="320" x2="244" y2="320" stroke="#ede8dc" stroke-width="4" stroke-linecap="square"/>
+
+  </g>
+
+</svg>

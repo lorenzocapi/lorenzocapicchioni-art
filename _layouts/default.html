@@ -10,24 +10,24 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-Sunlight and shadow study - Female figure in nature · Lorenzo Capicchioni
+{{ page.title }} · {{ site.title }}
 </title>
 
 <meta
 name="description"
-content="Artist. Paintings, drawings, and video works.">
+content="{{ page.description | default: site.description }}">
 
 <meta
 property="og:title"
-content="Sunlight and shadow study - Female figure in nature">
+content="{{ page.title }}">
 
 <meta
 property="og:description"
-content="Artist. Paintings, drawings, and video works.">
+content="{{ site.description }}">
 
 <meta
 property="og:image"
-content="http://localhost:4000/immagini/layout/social-preview.webp">
+content="{{ site.url }}/immagini/layout/social-preview.webp">
 
 <meta
 property="og:type"
@@ -35,7 +35,7 @@ content="website">
 
 <meta
 property="og:url"
-content="http://localhost:4000/opere/fine-art-painting-woman-back-nature-water/">
+content="{{ site.url }}{{ page.url }}">
 
 <link
 rel="stylesheet"
@@ -43,8 +43,7 @@ href="/style.css">
 
 <link
 rel="icon"
-type="image/svg+xml"
-href="/immagini/layout/favicon_LC_glitch.svg">
+href="/immagini/layout/favicon_LC_glitch.svg?v=1">
 
 <link
 rel="apple-touch-icon"
@@ -74,53 +73,13 @@ INFO
 
 </header>
 
-
 <main>
 
-<article class="opera">
-
-  
-  <div class="opera-image">
-    <img
-      src="/immagini/opere/dipinti/fine-art-painting-woman-back-nature-water.webp"
-      alt="Impressionistic oil painting of a woman from behind, looking towards a sunlit lake surrounded by dark trees and lush vegetation"
-    >
-  </div>
-  
-
-  <div class="opera-meta">
-
-    <p>Paintings</p>
-
-    <h1>Sunlight and shadow study - Female figure in nature</h1>
-
-    
-      <p>Year · 2026</p>
-    
-
-    
-      <p>Medium · Oil on canvas</p>
-    
-
-    
-      <p>Dimensions · 30 × 40 cm</p>
-    
-
-    
-      <div>
-        
-
-      </div>
-    
-
-  </div>
-
-</article>
+{{ content }}
 
 </main>
 
-
-<!-- THEME SWITCH -->
+{% unless page.url == "/" %}
 
 <button
 class="theme-toggle"
@@ -131,9 +90,7 @@ aria-label="Toggle theme">
 
 </button>
 
-
-
-<!-- INFO OVERLAY -->
+{% endunless %}
 
 <div
 class="info-overlay"
@@ -147,9 +104,7 @@ id="closeInfo">
 
 </button>
 
-
 <div class="info-content">
-
 
 <div class="info-meta">
 
@@ -160,8 +115,6 @@ id="closeInfo">
 <p>Location: Italy</p>
 
 </div>
-
-
 
 <div class="info-text">
 
@@ -175,7 +128,8 @@ and the sun is shining directly into your eyes.
 </p>
 
 <p>
-For a moment everything melts into everything until consciousness returns.
+For a moment everything melts into everything
+until consciousness returns.
 </p>
 
 <p>
@@ -237,6 +191,7 @@ Every painting I make is in search
 of this same beauty.
 </p>
 
+</div>
 
 <div class="info-contact">
 
@@ -246,13 +201,23 @@ studio@lorenzocapicchioniart.com
 
 </a>
 
-</div>
+<br><br>
 
+<a
+href="https://instagram.com/_babylon.art"
+target="_blank"
+rel="noopener">
+
+@_babylon.art
+
+</a>
+
+</div>
 
 <div class="info-legal">
 
 <p>
-© 2026
+© {{ site.time | date: "%Y" }}
 Lorenzo Capicchioni
 </p>
 
@@ -262,16 +227,13 @@ All works protected by copyright.
 
 </div>
 
-
 </div>
 
 </div>
-
-</div>
-
-
 
 <script>
+
+/* INFO OVERLAY */
 
 const openInfo =
 document.getElementById("openInfo")
@@ -281,7 +243,6 @@ document.getElementById("closeInfo")
 
 const overlay =
 document.getElementById("infoOverlay")
-
 
 openInfo?.addEventListener(
 "click",
@@ -297,24 +258,18 @@ overlay.classList.remove("is-aperto")
 }
 )
 
-
-
-/* CLOSE WITH ESC */
-
 document.addEventListener(
 "keydown",
 (e) => {
 
-if (
-e.key === "Escape"
-) {
+if(e.key === "Escape"){
+
 overlay.classList.remove("is-aperto")
+
 }
 
 }
 )
-
-
 
 /* THEME SWITCH */
 
@@ -328,10 +283,19 @@ const savedTheme =
 localStorage.getItem("theme")
 
 if(savedTheme){
+
 root.setAttribute(
 "data-theme",
 savedTheme
 )
+
+}else{
+
+root.setAttribute(
+"data-theme",
+"dark"
+)
+
 }
 
 toggle?.addEventListener(
@@ -355,6 +319,35 @@ localStorage.setItem(
 "theme",
 next
 )
+
+}
+)
+
+/* KEYBOARD NAVIGATION */
+
+document.addEventListener(
+"keydown",
+(e) => {
+
+const prevLink =
+document.querySelector(".opera-nav-link")
+
+const nextLink =
+document.querySelector(".opera-nav-next")
+
+if(e.key === "ArrowLeft" && prevLink){
+
+window.location.href =
+prevLink.href
+
+}
+
+if(e.key === "ArrowRight" && nextLink){
+
+window.location.href =
+nextLink.href
+
+}
 
 }
 )

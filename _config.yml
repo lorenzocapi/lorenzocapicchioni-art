@@ -5,8 +5,8 @@
 # --- Identità del sito ---
 title: "Lorenzo Capicchioni"
 description: "Artist. Paintings, drawings, and video works."
-url: "https://www.lorenzocapicchioniart.com"
-baseurl: ""
+url: "https://lorenzocapi.github.io"
+baseurl: "/lorenzocapicchioni-art"
 
 # Immagine di default per Open Graph e Twitter Cards
 image: "/immagini/layout/social-preview.webp"

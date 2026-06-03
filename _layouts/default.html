@@ -39,7 +39,7 @@ content="{{ site.url }}{{ page.url }}">
 
 <link
 rel="stylesheet"
-href="/style.css">
+href="{{ '/style.css' | relative_url }}">
 
 <link
 rel="icon"
@@ -56,7 +56,7 @@ href="/immagini/layout/apple-touch-icon.png">
 <header class="site-header">
 
 <a
-href="/"
+href="{{ '/' | relative_url }}"
 class="site-logo">
 
 LORENZO CAPICCHIONI

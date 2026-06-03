@@ -27,7 +27,7 @@ content="{{ site.description }}">
 
 <meta
 property="og:image"
-content="{{ site.url }}/immagini/layout/social-preview.webp">
+content="{{ site.url }}{{ site.baseurl }}/immagini/layout/social-preview.webp">
 
 <meta
 property="og:type"
@@ -43,11 +43,12 @@ href="{{ '/style.css' | relative_url }}">
 
 <link
 rel="icon"
-href="/immagini/layout/favicon_LC_glitch.svg?v=1">
+type="image/svg+xml"
+href="{{ '/immagini/layout/favicon_LC_glitch.svg' | relative_url }}">
 
 <link
 rel="apple-touch-icon"
-href="/immagini/layout/apple-touch-icon.png">
+href="{{ '/immagini/layout/apple-touch-icon.png' | relative_url }}">
 
 </head>
 

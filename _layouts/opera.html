@@ -8,7 +8,7 @@ layout: default
 
     {% if page.cover %}
     <img
-      src="{{ page.cover }}"
+      src="{{ page.cover | relative_url }}"
       alt="{{ page.title }}"
       class="opera-image"
       loading="eager">
@@ -114,7 +114,7 @@ layout: default
   <nav class="opera-navigation">
 
     <a
-    href="{{ opera_precedente.url }}"
+    href="{{ opera_precedente.url | relative_url }}"
     class="opera-nav-link">
 
       ← {{ opera_precedente.title }}
@@ -122,7 +122,7 @@ layout: default
     </a>
 
     <a
-    href="{{ opera_successiva.url }}"
+    href="{{ opera_successiva.url | relative_url }}"
     class="opera-nav-link opera-nav-next">
 
       {{ opera_successiva.title }} →

@@ -100,28 +100,16 @@ pointer-events:none;
 .site-logo,
 .info-btn{
 
-pointer-events:auto;
-
-font-size:12px;
-
-letter-spacing:.22em;
-
-text-transform:uppercase;
-
-color:red !important;
-
-background:yellow !important;
-
-padding:10px !important;
-
-border:2px solid red !important;
-
-opacity:1 !important;
+mix-blend-mode:difference;
 
 }
 
 .site-logo{
+
+color:var(--text);
+
 opacity:.9;
+
 }
 
 .info-btn{
@@ -130,6 +118,8 @@ background:none;
 border:0;
 
 cursor:pointer;
+
+color:var(--text);
 
 opacity:.7;
 
@@ -318,7 +308,7 @@ align-items:center;
 justify-content:center;
 
 background-image:
-url("./immagini/layout/home-background.webp");
+url("../immagini/layout/home-background.webp");
 
 background-size:cover;
 background-position:center;

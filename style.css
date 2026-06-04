@@ -108,6 +108,16 @@ letter-spacing:.22em;
 
 text-transform:uppercase;
 
+color:red !important;
+
+background:yellow !important;
+
+padding:10px !important;
+
+border:2px solid red !important;
+
+opacity:1 !important;
+
 }
 
 .site-logo{

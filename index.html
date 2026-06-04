@@ -1,14 +1,38 @@
 ---
 layout: default
-title: Lorenzo Capicchioni
+title: Portfolio
 ---
 
-<section class="home-hero">
+<section class="portfolio">
 
-<a href="{{ '/portfolio/' | relative_url }}" class="home-enter">
+<div class="portfolio-grid">
 
-Enter
+{% assign schede_ordinate = site.schede | sort: "year" | reverse %}
+
+{% for scheda in schede_ordinate %}
+
+<a
+href="{{ scheda.url | relative_url }}"
+class="portfolio-card">
+
+<img
+class="portfolio-thumb"
+src="{{ scheda.cover | relative_url }}"
+alt="{{ scheda.alt }}"
+loading="lazy">
+
+<div class="portfolio-meta">
+
+<h2>{{ scheda.title }}</h2>
+
+<span>{{ scheda.year }}</span>
+
+</div>
 
 </a>
+
+{% endfor %}
+
+</div>
 
 </section>

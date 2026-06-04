@@ -308,7 +308,7 @@ align-items:center;
 justify-content:center;
 
 background-image:
-url("/immagini/layout/home-background.webp");
+url("./immagini/layout/home-background.webp");
 
 background-size:cover;
 background-position:center;

@@ -5,130 +5,85 @@ layout: default
 <article class="opera-page">
 
   <div class="opera-media">
-
     {% if page.cover %}
     <img
       src="{{ page.cover | relative_url }}"
-      alt="{{ page.title }}"
+      alt="{{ page.alt | default: page.title }}"
       class="opera-image"
       loading="eager">
     {% endif %}
-
   </div>
 
   <div class="opera-details">
-
     <div class="opera-meta">
 
-      <p class="opera-category">
-        {{ page.category }}
-      </p>
+      <p class="opera-category">{{ page.category }}</p>
 
-      <h1 class="opera-title">
-        {{ page.title }}
-      </h1>
+      <h1 class="opera-title">{{ page.title }}</h1>
 
       {% if page.year %}
-      <p>
-        Year · {{ page.year }}
-      </p>
+      <p>Year · {{ page.year }}</p>
       {% endif %}
 
       {% if page.medium %}
-      <p>
-        Medium · {{ page.medium }}
-      </p>
+      <p>Medium · {{ page.medium }}</p>
       {% endif %}
 
       {% if page.dimensions %}
-      <p>
-        Dimensions · {{ page.dimensions }}
-      </p>
+      <p>Dimensions · {{ page.dimensions }}</p>
       {% endif %}
 
       <div class="opera-contact">
-
-        <a
-        href="mailto:studio@lorenzocapicchioniart.com?subject=Request Information">
-
+        <a href="mailto:studio@lorenzocapicchioniart.com?subject=Request%20Information%20%E2%80%94%20{{ page.title | url_encode }}">
           Request Information
-
         </a>
-
       </div>
 
     </div>
 
-    {% if content and content != "" %}
-
+    {% if content != "" %}
     <div class="opera-text">
-
       {{ content }}
-
     </div>
-
     {% endif %}
-
   </div>
 
-
+  <!-- ============================================================
+       Navigazione prev / next
+       Scorre tutte le schede ordinate per anno.
+       Cicla: l'ultima rimanda alla prima e viceversa.
+       ============================================================ -->
   {% assign opere = site.schede | sort: "year" | reverse %}
 
   {% for opera in opere %}
-
     {% if opera.url == page.url %}
-
       {% assign current_index = forloop.index0 %}
-
     {% endif %}
-
   {% endfor %}
-
 
   {% assign last_index = opere.size | minus: 1 %}
 
-
   {% if current_index == 0 %}
-
     {% assign opera_precedente = opere[last_index] %}
     {% assign opera_successiva = opere[1] %}
-
   {% elsif current_index == last_index %}
-
     {% assign prev_index = current_index | minus: 1 %}
-
     {% assign opera_precedente = opere[prev_index] %}
     {% assign opera_successiva = opere[0] %}
-
   {% else %}
-
-    {% assign prev_index = current_index | plus: 1 %}
-    {% assign next_index = current_index | minus: 1 %}
-
+    {% assign prev_index = current_index | minus: 1 %}
+    {% assign next_index = current_index | plus: 1 %}
     {% assign opera_precedente = opere[prev_index] %}
     {% assign opera_successiva = opere[next_index] %}
-
   {% endif %}
 
-
   <nav class="opera-navigation">
-
-    <a
-    href="{{ opera_precedente.url | relative_url }}"
-    class="opera-nav-link">
-
+    <a href="{{ opera_precedente.url | relative_url }}" class="opera-nav-link">
       ← {{ opera_precedente.title }}
-
     </a>
-
-    <a
-    href="{{ opera_successiva.url | relative_url }}"
-    class="opera-nav-link opera-nav-next">
-
+    <a href="{{ opera_successiva.url | relative_url }}" class="opera-nav-link opera-nav-next">
       {{ opera_successiva.title }} →
-
     </a>
-
   </nav>
 
 </article>

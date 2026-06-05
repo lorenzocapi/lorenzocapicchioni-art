@@ -1,515 +1,223 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+  <!-- Open Graph -->
+  <meta property="og:title"       content="{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:image"       content="{{ site.url }}{{ site.baseurl }}/immagini/layout/social-preview.webp">
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="{{ site.url }}{{ page.url }}">
 
-<title>
-{{ page.title }} · {{ site.title }}
-</title>
+  <link rel="stylesheet"    href="{{ '/style.css'                              | relative_url }}">
+  <link rel="icon"          href="{{ '/immagini/layout/favicon_LC_glitch.svg'  | relative_url }}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ '/immagini/layout/apple-touch-icon.png' | relative_url }}">
 
-<meta
-name="description"
-content="{{ page.description | default: site.description }}">
-
-<meta
-property="og:title"
-content="{{ page.title }}">
-
-<meta
-property="og:description"
-content="{{ site.description }}">
-
-<meta
-property="og:image"
-content="{{ site.url }}{{ site.baseurl }}/immagini/layout/social-preview.webp">
-
-<meta
-property="og:type"
-content="website">
-
-<meta
-property="og:url"
-content="{{ site.url }}{{ page.url }}">
-
-<link
-rel="stylesheet"
-href="{{ '/style.css' | relative_url }}">
-
-<link
-rel="icon"
-type="image/svg+xml"
-href="{{ '/immagini/layout/favicon_LC_glitch.svg' | relative_url }}">
-
-<link
-rel="apple-touch-icon"
-href="{{ '/immagini/layout/apple-touch-icon.png' | relative_url }}">
-
+  <!--
+    Anti-FOUC: legge il tema da localStorage prima del primo paint.
+    Chiave: "theme" (coerente con lo script inline sotto).
+  -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>
 
-<header class="site-header">
-
-<button
-class="back-btn"
-id="backBtn">
-
-×
-
-</button>
-
-<button
-class="info-btn"
-id="openInfo">
-
-INFO
-
-</button>
-
-</header>
-
-<main>
-
-{{ content }}
-
-</main>
-
-{% unless page.url == "/" %}
-
-<button
-class="theme-toggle"
-id="themeToggle"
-aria-label="Toggle theme">
-
-◐
-
-</button>
-
-{% endunless %}
-
-<div
-class="info-overlay"
-id="infoOverlay">
-
-<button
-class="info-close"
-id="closeInfo">
-
-×
-
-</button>
-
-<div class="info-content">
-
-<div class="info-meta">
-
-<p>From: Lorenzo Capicchioni</p>
-
-<p>Born: 1989</p>
-
-<p>Location: Italy</p>
-
-</div>
-
-<div class="info-text">
-
-<p>
-To you reading this,
-</p>
-
-<p>
-The dizzy feeling when you open your eyes after a nap outside,
-and the sun is shining directly into your eyes.
-</p>
-
-<p>
-For a moment everything melts into everything
-until consciousness returns.
-</p>
-
-<p>
-This is the best way to describe what I do.
-The way I paint pretty much reflects this awakening.
-</p>
-
-<p>
-It would be easy to say "art is a call."
-I say "art is a choice."
-Just like love is a choice.
-</p>
-
-<p>
-It’s hard attending a school of art,
-and it’s hard being self-taught.
-I am the latter kind.
-It’s hard being an artist anyway.
-</p>
-
-<p>
-There is no recipe;
-there is a process.
-You have to trust the process.
-</p>
-
-<p>
-You have to believe that,
-whatever it takes,
-you have it.
-And when you don't have it,
-it's simply unfinished.
-</p>
-
-<p>
-Failure is my ultimate friend.
-Oil painting is about allowing myself
-to make mistakes.
-</p>
-
-<p>
-To you reading these words,
-thank you.
-You and I are a byproduct of time.
-</p>
-
-<p>
-Every painting on this website
-is also a matter of time.
-</p>
-
-<p>
-Time is our enemy.
-</p>
-
-<p>
-There is beauty in things that don't happen.
-Every painting I make is in search
-of this same beauty.
-</p>
-
-</div>
-
-<div class="info-contact">
-
-<a href="mailto:studio@lorenzocapicchioniart.com">
-
-studio@lorenzocapicchioniart.com
-
-</a>
-
-<br><br>
-
-<a
-href="https://instagram.com/_babylon.art"
-target="_blank"
-rel="noopener">
-
-@_babylon.art
-
-</a>
-
-</div>
-
-<div class="info-legal">
-
-<p>
-© {{ site.time | date: "%Y" }}
-Lorenzo Capicchioni
-</p>
-
-<p>
-All works protected by copyright.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-/* INFO OVERLAY */
-
-const openInfo =
-document.getElementById("openInfo")
-
-const closeInfo =
-document.getElementById("closeInfo")
-
-const overlay =
-document.getElementById("infoOverlay")
-
-openInfo?.addEventListener(
-"click",
-() => {
-overlay.classList.add("is-aperto")
-}
-)
-
-closeInfo?.addEventListener(
-"click",
-() => {
-overlay.classList.remove("is-aperto")
-}
-)
-
-document.addEventListener(
-"keydown",
-(e) => {
-
-if(e.key === "Escape"){
-
-overlay.classList.remove("is-aperto")
-
-}
-
-}
-)
-
-/* THEME SWITCH */
-
-const toggle =
-document.getElementById("themeToggle")
-
-const root =
-document.documentElement
-
-const savedTheme =
-localStorage.getItem("theme")
-
-if(savedTheme){
-
-root.setAttribute(
-"data-theme",
-savedTheme
-)
-
-}else{
-
-root.setAttribute(
-"data-theme",
-"dark"
-)
-
-}
-
-toggle?.addEventListener(
-"click",
-() => {
-
-const current =
-root.getAttribute("data-theme")
-
-const next =
-current === "dark"
-? "light"
-: "dark"
-
-root.setAttribute(
-"data-theme",
-next
-)
-
-localStorage.setItem(
-"theme",
-next
-)
-
-}
-)
-
-/* KEYBOARD NAVIGATION */
-
-document.addEventListener(
-"keydown",
-(e) => {
-
-const prevLink =
-document.querySelector(".opera-nav-link")
-
-const nextLink =
-document.querySelector(".opera-nav-next")
-
-if(e.key === "ArrowLeft" && prevLink){
-
-window.location.href =
-prevLink.href
-
-}
-
-if(e.key === "ArrowRight" && nextLink){
-
-window.location.href =
-nextLink.href
-
-}
-
-}
-)
-<script>
-
-/* INFO OVERLAY */
-
-const openInfo =
-document.getElementById("openInfo")
-
-const closeInfo =
-document.getElementById("closeInfo")
-
-const overlay =
-document.getElementById("infoOverlay")
-
-openInfo?.addEventListener(
-"click",
-() => {
-overlay.classList.add("is-aperto")
-}
-)
-
-closeInfo?.addEventListener(
-"click",
-() => {
-overlay.classList.remove("is-aperto")
-}
-)
-
-/* THEME SWITCH */
-
-const toggle =
-document.getElementById("themeToggle")
-
-const root =
-document.documentElement
-
-const savedTheme =
-localStorage.getItem("theme")
-
-if(savedTheme){
-
-root.setAttribute(
-"data-theme",
-savedTheme
-)
-
-}else{
-
-root.setAttribute(
-"data-theme",
-"dark"
-)
-
-}
-
-toggle?.addEventListener(
-"click",
-() => {
-
-const current =
-root.getAttribute("data-theme")
-
-const next =
-current === "dark"
-? "light"
-: "dark"
-
-root.setAttribute(
-"data-theme",
-next
-)
-
-localStorage.setItem(
-"theme",
-next
-)
-
-}
-)
-
-/* BACK BUTTON */
-
-const backBtn =
-document.getElementById("backBtn")
-
-backBtn?.addEventListener(
-"click",
-() => {
-
-if(document.referrer){
-
-window.history.back()
-
-}else{
-
-window.location.href =
-"{{ '/' | relative_url }}"
-
-}
-
-}
-)
-
-/* KEYBOARD */
-
-document.addEventListener(
-"keydown",
-(e) => {
-
-if(
-e.key === "Escape" &&
-overlay.classList.contains("is-aperto")
-){
-
-overlay.classList.remove("is-aperto")
-return
-
-}
-
-if(e.key === "Escape"){
-
-if(document.referrer){
-
-window.history.back()
-
-}else{
-
-window.location.href =
-"{{ '/' | relative_url }}"
-
-}
-
-}
-
-const prevLink =
-document.querySelector(".opera-nav-link")
-
-const nextLink =
-document.querySelector(".opera-nav-next")
-
-if(e.key === "ArrowLeft" && prevLink){
-
-window.location.href =
-prevLink.href
-
-}
-
-if(e.key === "ArrowRight" && nextLink){
-
-window.location.href =
-nextLink.href
-
-}
-
-}
-)
-
-</script>
+  <!-- ============================================================
+       HEADER FISSO
+       back-btn (sinistra) · INFO (destra)
+       ============================================================ -->
+  <header class="site-header">
+
+    <button class="back-btn" id="backBtn" aria-label="Go back">×</button>
+
+    <button class="info-btn" id="openInfo" aria-label="Open info" aria-expanded="false" aria-controls="infoOverlay">
+      INFO
+    </button>
+
+  </header>
+
+
+  <!-- ============================================================
+       CONTENUTO PAGINA
+       ============================================================ -->
+  <main>
+    {{ content }}
+  </main>
+
+
+  <!-- ============================================================
+       THEME TOGGLE — fisso in basso a destra
+       Solo visibile fuori dalla home (per non sporcare il hero)
+       ============================================================ -->
+  {% unless page.url == "/" or page.url == "/lorenzocapicchioni-art/" %}
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">◐</button>
+  {% endunless %}
+
+
+  <!-- ============================================================
+       OVERLAY INFO — fullscreen
+       ============================================================ -->
+  <div class="info-overlay" id="infoOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+
+    <button class="info-close" id="closeInfo" aria-label="Close info">×</button>
+
+    <div class="info-content">
+
+      <div class="info-meta">
+        <p>From: Lorenzo Capicchioni</p>
+        <p>Born: 1989</p>
+        <p>Location: Italy</p>
+      </div>
+
+      <div class="info-text">
+        <p>To you reading this,</p>
+        <p>The dizzy feeling when you open your eyes after a nap outside,
+           and the sun is shining directly into your eyes.</p>
+        <p>For a moment everything melts into everything
+           until consciousness returns.</p>
+        <p>This is the best way to describe what I do.
+           The way I paint pretty much reflects this awakening.</p>
+        <p>It would be easy to say "art is a call."
+           I say "art is a choice." Just like love is a choice.</p>
+        <p>It's hard attending a school of art,
+           and it's hard being self-taught. I am the latter kind.
+           It's hard being an artist anyway.</p>
+        <p>There is no recipe; there is a process.
+           You have to trust the process.</p>
+        <p>You have to believe that, whatever it takes, you have it.
+           And when you don't have it, it's simply unfinished.</p>
+        <p>Failure is my ultimate friend.
+           Oil painting is about allowing myself to make mistakes.</p>
+        <p>To you reading these words, thank you.
+           You and I are a byproduct of time.</p>
+        <p>Every painting on this website is also a matter of time.</p>
+        <p>Time is our enemy.</p>
+        <p>There is beauty in things that don't happen.
+           Every painting I make is in search of this same beauty.</p>
+      </div>
+
+      <div class="info-contact">
+        <a href="mailto:studio@lorenzocapicchioniart.com">
+          studio@lorenzocapicchioniart.com
+        </a>
+        <br><br>
+        <a href="https://instagram.com/_babylon.art" target="_blank" rel="noopener">
+          @_babylon.art
+        </a>
+      </div>
+
+      <div class="info-legal">
+        <p>© {{ site.time | date: "%Y" }} Lorenzo Capicchioni</p>
+        <p>All works protected by copyright.</p>
+      </div>
+
+    </div><!-- /info-content -->
+  </div><!-- /infoOverlay -->
+
+
+  <!-- ============================================================
+       SCRIPT INLINE
+       Tutto in un unico <script> per evitare dipendenze da file
+       esterni che potrebbero non essere ancora caricati.
+       ============================================================ -->
+  <script>
+    /* ---- INFO OVERLAY ---- */
+    const openInfo  = document.getElementById('openInfo');
+    const closeInfo = document.getElementById('closeInfo');
+    const overlay   = document.getElementById('infoOverlay');
+
+    function apriOverlay() {
+      overlay.classList.add('is-aperto');
+      overlay.setAttribute('aria-hidden', 'false');
+      openInfo.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      closeInfo.focus();
+    }
+
+    function chiudiOverlay() {
+      overlay.classList.remove('is-aperto');
+      overlay.setAttribute('aria-hidden', 'true');
+      openInfo.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      openInfo.focus();
+    }
+
+    openInfo  && openInfo.addEventListener('click', apriOverlay);
+    closeInfo && closeInfo.addEventListener('click', chiudiOverlay);
+
+    /* Click fuori dal contenuto chiude l'overlay */
+    overlay && overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) chiudiOverlay();
+    });
+
+
+    /* ---- THEME TOGGLE ---- */
+    const themeToggle = document.getElementById('themeToggle');
+    const root        = document.documentElement;
+
+    /* Il tema iniziale è già impostato dall'anti-FOUC nel <head>;
+       se mancasse, default dark. */
+    if (!root.getAttribute('data-theme')) {
+      root.setAttribute('data-theme', 'dark');
+    }
+
+    themeToggle && themeToggle.addEventListener('click', function () {
+      const current = root.getAttribute('data-theme');
+      const next    = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+
+
+    /* ---- BACK BUTTON ---- */
+    const backBtn = document.getElementById('backBtn');
+
+    backBtn && backBtn.addEventListener('click', function () {
+      if (document.referrer && document.referrer !== window.location.href) {
+        window.history.back();
+      } else {
+        window.location.href = '{{ "/" | relative_url }}';
+      }
+    });
+
+
+    /* ---- KEYBOARD ---- */
+    document.addEventListener('keydown', function (e) {
+
+      /* ESC: chiude overlay oppure torna indietro */
+      if (e.key === 'Escape') {
+        if (overlay && overlay.classList.contains('is-aperto')) {
+          chiudiOverlay();
+          return;
+        }
+        if (document.referrer && document.referrer !== window.location.href) {
+          window.history.back();
+        } else {
+          window.location.href = '{{ "/" | relative_url }}';
+        }
+        return;
+      }
+
+      /* ← → naviga tra le opere (usa classi presenti in opera.html) */
+      const prevLink = document.querySelector('.opera-nav-link:not(.opera-nav-next)');
+      const nextLink = document.querySelector('.opera-nav-next');
+
+      if (e.key === 'ArrowLeft'  && prevLink) window.location.href = prevLink.href;
+      if (e.key === 'ArrowRight' && nextLink) window.location.href = nextLink.href;
+    });
+  </script>
 
 </body>
-
 </html>

@@ -4,35 +4,26 @@ title: Portfolio
 ---
 
 <section class="portfolio">
+  <div class="portfolio-grid">
 
-<div class="portfolio-grid">
+    {% assign schede_ordinate = site.schede | sort: "year" | reverse %}
 
-{% assign schede_ordinate = site.schede | sort: "year" | reverse %}
+    {% for scheda in schede_ordinate %}
+    <a href="{{ scheda.url | relative_url }}" class="portfolio-card">
 
-{% for scheda in schede_ordinate %}
+      <img
+        class="portfolio-thumb"
+        src="{{ scheda.cover | relative_url }}"
+        alt="{{ scheda.alt | default: scheda.title }}"
+        loading="lazy">
 
-<a
-href="{{ scheda.url | relative_url }}"
-class="portfolio-card">
+      <div class="portfolio-meta">
+        <h2>{{ scheda.title }}</h2>
+        <span>{{ scheda.year }}</span>
+      </div>
 
-<img
-class="portfolio-thumb"
-src="{{ scheda.cover | relative_url }}"
-alt="{{ scheda.alt }}"
-loading="lazy">
+    </a>
+    {% endfor %}
 
-<div class="portfolio-meta">
-
-<h2>{{ scheda.title }}</h2>
-
-<span>{{ scheda.year }}</span>
-
-</div>
-
-</a>
-
-{% endfor %}
-
-</div>
-
+  </div>
 </section>

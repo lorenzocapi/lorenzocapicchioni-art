@@ -804,3 +804,27 @@ background:#111;
 background:#ece8df;
 
 }
+.site-header{
+z-index:9999;
+}
+
+.info-btn{
+position:relative;
+z-index:10000;
+}
+
+.back-btn{
+position:relative;
+z-index:10000;
+
+background:none;
+border:0;
+
+color:var(--text);
+
+font-size:24px;
+
+cursor:pointer;
+
+letter-spacing:0;
+}

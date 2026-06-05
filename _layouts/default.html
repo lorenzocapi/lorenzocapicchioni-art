@@ -56,13 +56,13 @@ href="{{ '/immagini/layout/apple-touch-icon.png' | relative_url }}">
 
 <header class="site-header">
 
-<a
-href="{{ '/' | relative_url }}"
-class="site-logo">
+<button
+class="back-btn"
+id="backBtn">
 
-LORENZO CAPICCHIONI
+×
 
-</a>
+</button>
 
 <button
 class="info-btn"
@@ -329,6 +329,161 @@ next
 document.addEventListener(
 "keydown",
 (e) => {
+
+const prevLink =
+document.querySelector(".opera-nav-link")
+
+const nextLink =
+document.querySelector(".opera-nav-next")
+
+if(e.key === "ArrowLeft" && prevLink){
+
+window.location.href =
+prevLink.href
+
+}
+
+if(e.key === "ArrowRight" && nextLink){
+
+window.location.href =
+nextLink.href
+
+}
+
+}
+)
+<script>
+
+/* INFO OVERLAY */
+
+const openInfo =
+document.getElementById("openInfo")
+
+const closeInfo =
+document.getElementById("closeInfo")
+
+const overlay =
+document.getElementById("infoOverlay")
+
+openInfo?.addEventListener(
+"click",
+() => {
+overlay.classList.add("is-aperto")
+}
+)
+
+closeInfo?.addEventListener(
+"click",
+() => {
+overlay.classList.remove("is-aperto")
+}
+)
+
+/* THEME SWITCH */
+
+const toggle =
+document.getElementById("themeToggle")
+
+const root =
+document.documentElement
+
+const savedTheme =
+localStorage.getItem("theme")
+
+if(savedTheme){
+
+root.setAttribute(
+"data-theme",
+savedTheme
+)
+
+}else{
+
+root.setAttribute(
+"data-theme",
+"dark"
+)
+
+}
+
+toggle?.addEventListener(
+"click",
+() => {
+
+const current =
+root.getAttribute("data-theme")
+
+const next =
+current === "dark"
+? "light"
+: "dark"
+
+root.setAttribute(
+"data-theme",
+next
+)
+
+localStorage.setItem(
+"theme",
+next
+)
+
+}
+)
+
+/* BACK BUTTON */
+
+const backBtn =
+document.getElementById("backBtn")
+
+backBtn?.addEventListener(
+"click",
+() => {
+
+if(document.referrer){
+
+window.history.back()
+
+}else{
+
+window.location.href =
+"{{ '/' | relative_url }}"
+
+}
+
+}
+)
+
+/* KEYBOARD */
+
+document.addEventListener(
+"keydown",
+(e) => {
+
+if(
+e.key === "Escape" &&
+overlay.classList.contains("is-aperto")
+){
+
+overlay.classList.remove("is-aperto")
+return
+
+}
+
+if(e.key === "Escape"){
+
+if(document.referrer){
+
+window.history.back()
+
+}else{
+
+window.location.href =
+"{{ '/' | relative_url }}"
+
+}
+
+}
 
 const prevLink =
 document.querySelector(".opera-nav-link")

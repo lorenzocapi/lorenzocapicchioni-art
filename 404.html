@@ -1,21 +1,12 @@
 ---
 layout: default
+title: "404"
+description: "Page not found."
 permalink: /404.html
-title: Lost
 ---
 
 <section class="error-page">
-
-<p class="error-code">
-404
-</p>
-
-<h1 class="error-title">
-This painting does not exist anymore.
-</h1>
-
-<a href="/portfolio/" class="error-link">
-Return to the archive
-</a>
-
+  <p class="error-code">404</p>
+  <p class="error-msg">This page doesn't exist.</p>
+  <a href="{{ '/' | relative_url }}" class="error-link">← Back to home</a>
 </section>

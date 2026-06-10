@@ -28,9 +28,7 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
@@ -39,32 +37,28 @@ body {
   transition: background .5s ease, color .5s ease;
   overflow-x: hidden;
   min-height: 100vh;
-  /* Fade-in pagina */
   opacity: 0;
   transform: translateY(10px);
-  animation: pageEnter .8s ease forwards;
+  animation: pageEnter .6s ease forwards;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Fade out prima di navigare */
+body.page-leaving {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .3s ease, transform .3s ease;
+  animation: none;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
 
 /* =====================
-   PAGE ENTER
+   PAGE TRANSITIONS
    ===================== */
 
 @keyframes pageEnter {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* =====================
@@ -73,9 +67,7 @@ img {
 
 .site-header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   padding: 30px 40px;
   display: flex;
   justify-content: space-between;
@@ -84,44 +76,40 @@ img {
   pointer-events: none;
 }
 
-.site-header > * {
-  pointer-events: auto;
-}
+.site-header > * { pointer-events: auto; }
 
+.back-placeholder { display: block; width: 60px; }
+
+/* Back button — ora è un <a> sulle opere, <button> altrove */
 .back-btn {
   background: none;
   border: 0;
   color: var(--text);
-  font-size: 24px;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
   cursor: pointer;
-  letter-spacing: 0;
-  opacity: .6;
+  opacity: .5;
   transition: opacity .3s;
-  mix-blend-mode: difference;
+  padding: 0;
+  line-height: 1;
 }
 
-.back-btn:hover {
-  opacity: 1;
-}
+.back-btn:hover { opacity: 1; }
 
 .info-btn {
   background: none;
   border: 0;
   cursor: pointer;
   color: var(--text);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
   opacity: .7;
   transition: .3s;
-  mix-blend-mode: difference;
-  position: relative;
-  z-index: 10000;
 }
 
-.info-btn:hover {
-  opacity: 1;
-}
+.info-btn:hover { opacity: 1; }
 
 /* =====================
    THEME TOGGLE
@@ -143,9 +131,7 @@ img {
   transition: var(--transition);
 }
 
-.theme-toggle:hover {
-  transform: scale(1.08);
-}
+.theme-toggle:hover { transform: scale(1.08); }
 
 /* =====================
    INFO OVERLAY
@@ -168,23 +154,24 @@ img {
   visibility: visible;
 }
 
-.info-close {
-  position: fixed;
-  top: 40px;
-  right: 40px;
-  background: none;
-  border: 0;
-  font-size: 32px;
-  color: var(--text);
-  cursor: pointer;
-  z-index: 260;
-  line-height: 1;
-  opacity: .7;
-  transition: opacity .3s;
+.info-close-wrap {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
 }
 
-.info-close:hover {
-  opacity: 1;
+.info-close {
+  background: none;
+  border: 0;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--text);
+  cursor: pointer;
+  opacity: .35;
+  transition: opacity .3s;
+  padding: 0 0 3px;
+  border-bottom: 1px solid var(--border);
 }
 
 .info-content {
@@ -208,13 +195,9 @@ img {
   max-width: 620px;
 }
 
-.info-text p {
-  margin-bottom: 28px;
-}
+.info-text p { margin-bottom: 28px; }
 
-.info-contact {
-  margin-top: 80px;
-}
+.info-contact { margin-top: 80px; }
 
 .info-contact a {
   border-bottom: 1px solid var(--border);
@@ -223,9 +206,7 @@ img {
   opacity: .8;
 }
 
-.info-contact a:hover {
-  opacity: 1;
-}
+.info-contact a:hover { opacity: 1; }
 
 .info-legal {
   margin-top: 80px;
@@ -240,11 +221,6 @@ img {
    HOME
    ===================== */
 
-/*
-  background-image NON è qui: viene passato come style inline
-  in index.html tramite filtro relative_url di Jekyll.
-  Questo risolve il problema con baseurl su GitHub Pages.
-*/
 .home-hero {
   min-height: 100vh;
   display: flex;
@@ -276,21 +252,68 @@ img {
   transition: .35s;
 }
 
-[data-theme="light"] .home-enter {
-  color: #111;
+[data-theme="light"] .home-enter { color: #111; }
+.home-enter:hover { opacity: .55; }
+
+/* =====================
+   PORTFOLIO — FILTRI
+   ===================== */
+
+.portfolio { padding: 120px 60px 80px; }
+
+.portfolio-filters {
+  display: flex;
+  align-items: baseline;
+  gap: 40px;
+  margin-bottom: 60px;
 }
 
-.home-enter:hover {
-  opacity: .55;
+.portfolio-filter-btn {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: .3;
+  transition: opacity .3s;
+  padding: 0;
+  position: relative;
+}
+
+.portfolio-filter-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+
+.portfolio-filter-btn:hover { opacity: .6; }
+
+.portfolio-filter-btn.is-active {
+  opacity: 1;
+}
+
+.portfolio-filter-btn.is-active::after {
+  transform: scaleX(1);
+}
+
+/* Contatore inline nel pulsante attivo */
+.filter-count {
+  font-size: 10px;
+  letter-spacing: .05em;
+  opacity: .5;
+  margin-left: 3px;
 }
 
 /* =====================
-   PORTFOLIO
+   PORTFOLIO — GRIGLIA
    ===================== */
-
-.portfolio {
-  padding: 140px 60px;
-}
 
 .portfolio-grid {
   display: grid;
@@ -330,9 +353,7 @@ img {
   transition: transform 1.2s cubic-bezier(.19,1,.22,1), opacity .8s ease;
 }
 
-[data-theme="light"] .portfolio-thumb {
-  background: #ece8df;
-}
+[data-theme="light"] .portfolio-thumb { background: #ece8df; }
 
 .portfolio-card:hover .portfolio-thumb {
   transform: scale(1.02);
@@ -346,23 +367,11 @@ img {
   gap: 20px;
 }
 
-.portfolio-meta h2 {
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--text);
-}
-
-.portfolio-meta span {
-  font-size: 12px;
-  opacity: .5;
-  color: var(--text);
-}
+.portfolio-meta h2 { font-size: 15px; font-weight: 400; color: var(--text); }
+.portfolio-meta span { font-size: 12px; opacity: .5; color: var(--text); }
 
 @keyframes portfolioFade {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 900px) {
@@ -373,9 +382,7 @@ img {
 }
 
 @media (max-width: 560px) {
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
+  .portfolio-grid { grid-template-columns: 1fr; }
 }
 
 /* =====================
@@ -406,9 +413,7 @@ img {
   padding: 0 40px;
 }
 
-.opera-meta {
-  margin-bottom: 60px;
-}
+.opera-meta { margin-bottom: 60px; }
 
 .opera-category {
   font-size: 11px;
@@ -431,9 +436,7 @@ img {
   margin-bottom: 8px;
 }
 
-.opera-contact {
-  margin-top: 35px;
-}
+.opera-contact { margin-top: 35px; }
 
 .opera-contact a {
   font-size: 11px;
@@ -445,9 +448,7 @@ img {
   transition: .35s;
 }
 
-.opera-contact a:hover {
-  opacity: 1;
-}
+.opera-contact a:hover { opacity: 1; }
 
 .opera-text {
   max-width: 620px;
@@ -455,9 +456,7 @@ img {
   line-height: 1.9;
 }
 
-.opera-text p {
-  margin-bottom: 26px;
-}
+.opera-text p { margin-bottom: 26px; }
 
 /* =====================
    OPERA NAVIGATION
@@ -480,56 +479,317 @@ img {
   transition: .35s;
 }
 
-.opera-nav-link:hover {
-  opacity: .85;
-}
-
-.opera-nav-next {
-  text-align: right;
-  margin-left: auto;
-}
+.opera-nav-link:hover { opacity: .85; }
+.opera-nav-next { text-align: right; margin-left: auto; }
 
 /* =====================
    RESPONSIVE
    ===================== */
 
 @media (max-width: 768px) {
-  .site-header {
-    padding: 24px 20px;
-  }
+  .site-header { padding: 24px 20px; }
 
-  .info-content {
-    padding: 100px 24px;
-  }
+  .info-content { padding: 100px 24px; }
 
-  .info-close {
-    top: 24px;
-    right: 24px;
-  }
+  .portfolio { padding: 90px 20px 60px; }
+  .portfolio-filters { gap: 24px; margin-bottom: 40px; }
 
-  .portfolio {
-    padding: 100px 20px;
-  }
+  .opera-page { padding-top: 100px; }
+  .opera-media { padding: 0 20px; }
+  .opera-details { padding: 0 20px; margin-top: 60px; }
+  .opera-title { font-size: clamp(38px, 7vw, 82px); }
+  .opera-navigation { padding: 0 20px; margin-top: 60px; }
+}
 
-  .opera-page {
-    padding-top: 100px;
-  }
+/* =====================
+   404
+   ===================== */
 
-  .opera-media {
-    padding: 0 20px;
-  }
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  padding: 40px;
+}
 
-  .opera-details {
-    padding: 0 20px;
-    margin-top: 60px;
-  }
+.error-code {
+  font-size: clamp(80px, 15vw, 160px);
+  font-weight: 400;
+  opacity: .08;
+  line-height: 1;
+  letter-spacing: -.02em;
+}
 
-  .opera-title {
-    font-size: clamp(38px, 7vw, 82px);
-  }
+.error-msg {
+  font-size: 14px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .45;
+}
 
-  .opera-navigation {
-    padding: 0 20px;
-    margin-top: 60px;
-  }
+.error-link {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .5;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: opacity .3s;
+}
+
+.error-link:hover { opacity: 1; }
+
+/* =====================
+   LEGAL PAGE
+   ===================== */
+
+.legal-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 160px 40px 120px;
+}
+
+.legal-title {
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  opacity: .35;
+  margin-bottom: 80px;
+}
+
+.legal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.legal-section h2 {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .4;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.legal-section p {
+  font-size: 16px;
+  line-height: 1.8;
+  opacity: .75;
+  margin-bottom: 12px;
+}
+
+.legal-section p:last-child { margin-bottom: 0; }
+
+.legal-section a {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: opacity .3s;
+}
+
+.legal-section a:hover { opacity: .6; }
+
+.legal-section code {
+  font-family: monospace;
+  font-size: 13px;
+  opacity: .7;
+}
+
+.legal-section--last {
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.legal-copy {
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .3;
+}
+
+@media (max-width: 768px) {
+  .legal-page { padding: 120px 24px 80px; }
+}
+
+.info-close:hover { opacity: 1; }
+
+/* =====================
+   LOAD MORE
+   ===================== */
+
+.load-more-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0 20px;
+}
+
+.load-more-btn {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: .4;
+  padding: 0 0 3px;
+  border-bottom: 1px solid var(--border);
+  transition: opacity .3s;
+}
+
+.load-more-btn:hover { opacity: 1; }
+
+/* =====================
+   INFO OVERLAY — logo
+   ===================== */
+
+.info-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.info-logo-img {
+  width: 120px;
+  height: 120px;
+  color: var(--text);
+  opacity: .9;
+  /* SVG inline eredita currentColor dal genitore */
+}
+
+/* =====================
+   CONTACT FORM
+   ===================== */
+
+.info-contact-intro {
+  font-size: 14px;
+  opacity: .6;
+  margin-bottom: 32px;
+  letter-spacing: .03em;
+  line-height: 1.6;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.contact-form__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-form__label {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  opacity: .4;
+}
+
+.contact-form__input,
+.contact-form__textarea {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  padding: 8px 0;
+  outline: none;
+  transition: border-color .3s;
+  resize: none;
+  width: 100%;
+}
+
+.contact-form__input:focus,
+.contact-form__textarea:focus {
+  border-color: var(--text);
+}
+
+.contact-form__input::placeholder,
+.contact-form__textarea::placeholder {
+  opacity: .25;
+}
+
+.contact-form__submit {
+  align-self: flex-start;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: .5;
+  padding: 0 0 3px;
+  border-bottom: 1px solid var(--border);
+  transition: opacity .3s;
+  margin-top: 8px;
+}
+
+.contact-form__submit:hover { opacity: 1; }
+.contact-form__submit:disabled { opacity: .25; cursor: default; }
+
+.contact-form__feedback {
+  font-size: 12px;
+  letter-spacing: .08em;
+  min-height: 1.5em;
+  margin-top: -8px;
+}
+
+.contact-form__feedback.is-ok    { opacity: .6; }
+.contact-form__feedback.is-errore { opacity: .8; color: #c0705a; }
+
+.info-social {
+  margin-top: 40px;
+}
+
+.info-social a {
+  font-size: 13px;
+  letter-spacing: .05em;
+  opacity: .5;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: opacity .3s;
+}
+
+.info-social a:hover { opacity: 1; }
+
+/* =====================
+   OPERA — request btn
+   ===================== */
+
+.opera-request-btn {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: .6;
+  padding: 0 0 3px;
+  border-bottom: 1px solid var(--border);
+  transition: opacity .3s;
+}
+
+.opera-request-btn:hover { opacity: 1; }
+
+/* =====================
+   OVERLAY — modalità opera
+   Nasconde bio, mostra solo form
+   ===================== */
+
+.page-opera [data-mode="bio"] {
+  display: none;
+}
+
+.page-opera .info-content {
+  padding-top: 80px;
 }

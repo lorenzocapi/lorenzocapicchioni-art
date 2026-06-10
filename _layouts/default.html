@@ -14,14 +14,11 @@
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="{{ site.url }}{{ page.url }}">
 
-  <link rel="stylesheet"    href="{{ '/style.css'                              | relative_url }}">
-  <link rel="icon"          href="{{ '/immagini/layout/favicon_LC_glitch.svg'  | relative_url }}" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="{{ '/immagini/layout/apple-touch-icon.png' | relative_url }}">
+  <link rel="stylesheet"       href="{{ '/style.css'                               | relative_url }}">
+  <link rel="icon"             href="{{ '/immagini/layout/favicon_LC_glitch.svg'   | relative_url }}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ '/immagini/layout/apple-touch-icon.png'    | relative_url }}">
 
-  <!--
-    Anti-FOUC: legge il tema da localStorage prima del primo paint.
-    Chiave: "theme" (coerente con lo script inline sotto).
-  -->
+  <!-- Anti-FOUC -->
   <script>
     (function () {
       try {
@@ -32,19 +29,42 @@
   </script>
 </head>
 
-<body>
+<body{% if page.layout == "opera" %} class="page-opera"{% endif %}>
 
   <!-- ============================================================
        HEADER FISSO
-       back-btn (sinistra) · INFO (destra)
+       Sinistra: back (← testo categoria) oppure vuoto sulla home
+       Destra: INFO sempre visibile
        ============================================================ -->
   <header class="site-header">
 
-    <button class="back-btn" id="backBtn" aria-label="Go back">×</button>
+    {% if page.url == "/" or page.url == "/lorenzocapicchioni-art/" %}
+      <!-- Home: nessun back button, spazio vuoto per bilanciare -->
+      <span class="back-placeholder"></span>
+    {% elsif page.layout == "opera" %}
+      <!-- Pagina opera: torna al portfolio con nome categoria -->
+      <a
+        href="{{ '/portfolio/' | relative_url }}#{{ page.category | downcase }}"
+        class="back-btn"
+        id="backBtn"
+        aria-label="Back to {{ page.category }}">
+        ← {{ page.category }}
+      </a>
+    {% else %}
+      <!-- Altre pagine: torna indietro generico -->
+      <button class="back-btn" id="backBtn" aria-label="Go back">← Back</button>
+    {% endif %}
 
-    <button class="info-btn" id="openInfo" aria-label="Open info" aria-expanded="false" aria-controls="infoOverlay">
+    {% unless page.layout == "opera" %}
+    <button
+      class="info-btn"
+      id="openInfo"
+      aria-label="Open info"
+      aria-expanded="false"
+      aria-controls="infoOverlay">
       INFO
     </button>
+    {% endunless %}
 
   </header>
 
@@ -59,7 +79,9 @@
 
   <!-- ============================================================
        THEME TOGGLE — fisso in basso a destra
-       Solo visibile fuori dalla home (per non sporcare il hero)
+       Nascosto sulla home: l'immagine fullscreen non ha bisogno
+       di un bottone che galleggia sopra, il tema si imposta
+       entrando nel portfolio.
        ============================================================ -->
   {% unless page.url == "/" or page.url == "/lorenzocapicchioni-art/" %}
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">◐</button>
@@ -71,17 +93,101 @@
        ============================================================ -->
   <div class="info-overlay" id="infoOverlay" role="dialog" aria-modal="true" aria-hidden="true">
 
-    <button class="info-close" id="closeInfo" aria-label="Close info">×</button>
-
     <div class="info-content">
 
-      <div class="info-meta">
+      <!-- Logo inline SVG — eredita currentColor dal tema -->
+      <div class="info-logo" aria-hidden="true" data-mode="bio">
+        <svg class="info-logo-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="120" height="120">
+          <defs>
+            <filter id="stamp-logo" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence type="turbulence" baseFrequency="0.038" numOctaves="4" seed="12" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.8" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+              <feMorphology in="displaced" operator="erode" radius="0.5" result="eroded"/>
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="5" result="grain"/>
+              <feComposite in="eroded" in2="grain" operator="in"/>
+            </filter>
+            <clipPath id="circleClip-logo"><circle cx="200" cy="200" r="184"/></clipPath>
+          </defs>
+          <g filter="url(#stamp-logo)">
+            <circle cx="200" cy="200" r="185" fill="none" stroke="currentColor" stroke-width="9"/>
+            <g fill="currentColor" clip-path="url(#circleClip-logo)">
+              <g transform="rotate(0 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(15 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(30 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(45 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(60 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(75 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(90 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(105 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(120 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(135 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(150 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(165 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(180 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(195 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(210 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(225 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(240 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(255 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(270 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(285 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(300 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(315 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+              <g transform="rotate(330 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+              <g transform="rotate(345 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+            </g>
+            <g fill="currentColor" stroke="currentColor" stroke-linecap="round">
+              <circle cx="200" cy="88" r="13" fill="none" stroke="currentColor" stroke-width="6"/>
+              <circle cx="200" cy="88" r="4.5"/>
+              <line x1="200" y1="68" x2="200" y2="61" stroke-width="5"/>
+              <line x1="200" y1="108" x2="200" y2="115" stroke-width="5"/>
+              <line x1="180" y1="88" x2="173" y2="88" stroke-width="5"/>
+              <line x1="220" y1="88" x2="227" y2="88" stroke-width="5"/>
+              <line x1="186" y1="74" x2="181" y2="69" stroke-width="4.5"/>
+              <line x1="214" y1="74" x2="219" y2="69" stroke-width="4.5"/>
+              <line x1="186" y1="102" x2="181" y2="107" stroke-width="4.5"/>
+              <line x1="214" y1="102" x2="219" y2="107" stroke-width="4.5"/>
+            </g>
+            <g fill="currentColor">
+              <rect x="108" y="258" width="184" height="20" rx="2"/>
+              <rect x="120" y="236" width="160" height="24" rx="2"/>
+              <rect x="134" y="214" width="132" height="24" rx="2"/>
+              <rect x="148" y="193" width="104" height="23" rx="2"/>
+              <rect x="161" y="173" width="78" height="22" rx="2"/>
+              <rect x="174" y="154" width="52" height="21" rx="2"/>
+              <rect x="183" y="132" width="34" height="24" rx="2"/>
+              <polygon points="179,132 200,114 221,132"/>
+              <rect x="192" y="141" width="16" height="15" rx="1" fill="var(--bg)"/>
+              <rect x="192" y="154" width="16" height="21" fill="var(--bg)"/>
+              <rect x="192" y="173" width="16" height="22" fill="var(--bg)"/>
+              <rect x="192" y="193" width="16" height="23" fill="var(--bg)"/>
+              <rect x="192" y="214" width="16" height="24" fill="var(--bg)"/>
+              <rect x="192" y="236" width="16" height="24" fill="var(--bg)"/>
+              <rect x="132" y="241" width="13" height="13" rx="1" fill="var(--bg)"/>
+              <rect x="255" y="241" width="13" height="13" rx="1" fill="var(--bg)"/>
+              <rect x="145" y="219" width="11" height="11" rx="1" fill="var(--bg)"/>
+              <rect x="244" y="219" width="11" height="11" rx="1" fill="var(--bg)"/>
+              <rect x="158" y="198" width="10" height="10" rx="1" fill="var(--bg)"/>
+              <rect x="232" y="198" width="10" height="10" rx="1" fill="var(--bg)"/>
+              <rect x="170" y="178" width="9" height="9" rx="1" fill="var(--bg)"/>
+              <rect x="221" y="178" width="9" height="9" rx="1" fill="var(--bg)"/>
+            </g>
+            <text x="76" y="232" font-family="'Courier New', Courier, monospace" font-size="92" font-weight="900" fill="currentColor" text-anchor="middle">L</text>
+            <text x="324" y="232" font-family="'Courier New', Courier, monospace" font-size="92" font-weight="900" fill="currentColor" text-anchor="middle">C</text>
+            <line x1="156" y1="291" x2="244" y2="291" stroke="currentColor" stroke-width="4" stroke-linecap="square"/>
+            <text x="200" y="313" font-family="'Courier New', Courier, monospace" font-size="22" font-weight="900" fill="currentColor" text-anchor="middle" letter-spacing="13">ART</text>
+            <line x1="156" y1="320" x2="244" y2="320" stroke="currentColor" stroke-width="4" stroke-linecap="square"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="info-meta" data-mode="bio">
         <p>From: Lorenzo Capicchioni</p>
         <p>Born: 1989</p>
         <p>Location: Italy</p>
       </div>
 
-      <div class="info-text">
+      <div class="info-text" data-mode="bio">
         <p>To you reading this,</p>
         <p>The dizzy feeling when you open your eyes after a nap outside,
            and the sun is shining directly into your eyes.</p>
@@ -108,29 +214,88 @@
            Every painting I make is in search of this same beauty.</p>
       </div>
 
-      <div class="info-contact">
-        <a href="mailto:studio@lorenzocapicchioniart.com">
-          studio@lorenzocapicchioniart.com
-        </a>
-        <br><br>
-        <a href="https://instagram.com/_babylon.art" target="_blank" rel="noopener">
-          @_babylon.art
-        </a>
+      <!-- Form contatti via Formspree -->
+      <div class="info-contact" data-mode="form">
+
+        <p class="info-contact-intro">
+          For inquiries, exhibition proposals, or any correspondence:
+        </p>
+
+        <form
+          class="contact-form"
+          id="contactForm"
+          action="https://formspree.io/f/meewljvz"
+          method="POST"
+          novalidate>
+
+          <div class="contact-form__campo">
+            <label for="contact-name" class="contact-form__label">Name</label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              class="contact-form__input"
+              required
+              autocomplete="name">
+          </div>
+
+          <div class="contact-form__campo">
+            <label for="contact-email" class="contact-form__label">Email</label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              class="contact-form__input"
+              required
+              autocomplete="email">
+          </div>
+
+          <div class="contact-form__campo">
+            <label for="contact-msg" class="contact-form__label">Message</label>
+            <textarea
+              id="contact-msg"
+              name="message"
+              class="contact-form__textarea"
+              rows="5"
+              required></textarea>
+          </div>
+
+          <!-- Honeypot anti-spam (Formspree lo gestisce automaticamente) -->
+          <input type="text" name="_gotcha" style="display:none">
+
+          <button type="submit" class="contact-form__submit" id="contactSubmit">
+            Send
+          </button>
+
+          <!-- Feedback invio -->
+          <p class="contact-form__feedback" id="contactFeedback" aria-live="polite"></p>
+
+        </form>
+
+        <div class="info-social">
+          <a href="https://instagram.com/_babylon.art" target="_blank" rel="noopener">
+            @_babylon.art
+          </a>
+        </div>
+
       </div>
 
-      <div class="info-legal">
+      <div class="info-legal" data-mode="bio">
         <p>© {{ site.time | date: "%Y" }} Lorenzo Capicchioni</p>
         <p>All works protected by copyright.</p>
       </div>
 
-    </div><!-- /info-content -->
-  </div><!-- /infoOverlay -->
+      <!-- Chiusura centrata in fondo -->
+      <div class="info-close-wrap">
+        <button class="info-close" id="closeInfo" aria-label="Close info">Close</button>
+      </div>
+
+    </div>
+  </div>
 
 
   <!-- ============================================================
-       SCRIPT INLINE
-       Tutto in un unico <script> per evitare dipendenze da file
-       esterni che potrebbero non essere ancora caricati.
+       SCRIPT
        ============================================================ -->
   <script>
     /* ---- INFO OVERLAY ---- */
@@ -157,7 +322,6 @@
     openInfo  && openInfo.addEventListener('click', apriOverlay);
     closeInfo && closeInfo.addEventListener('click', chiudiOverlay);
 
-    /* Click fuori dal contenuto chiude l'overlay */
     overlay && overlay.addEventListener('click', function (e) {
       if (e.target === overlay) chiudiOverlay();
     });
@@ -167,8 +331,6 @@
     const themeToggle = document.getElementById('themeToggle');
     const root        = document.documentElement;
 
-    /* Il tema iniziale è già impostato dall'anti-FOUC nel <head>;
-       se mancasse, default dark. */
     if (!root.getAttribute('data-theme')) {
       root.setAttribute('data-theme', 'dark');
     }
@@ -181,10 +343,10 @@
     });
 
 
-    /* ---- BACK BUTTON ---- */
+    /* ---- BACK BUTTON (solo pagine non-opera: per le opere usa <a>) ---- */
     const backBtn = document.getElementById('backBtn');
 
-    backBtn && backBtn.addEventListener('click', function () {
+    backBtn && backBtn.tagName === 'BUTTON' && backBtn.addEventListener('click', function () {
       if (document.referrer && document.referrer !== window.location.href) {
         window.history.back();
       } else {
@@ -193,15 +355,33 @@
     });
 
 
+    /* ---- TRANSIZIONE PAGINA — fade out prima di navigare ---- */
+    document.addEventListener('click', function (e) {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      /* Solo link interni, non mailto, non nuova scheda */
+      if (!href || href.startsWith('mailto:') || href.startsWith('http') || href.startsWith('//') || link.target === '_blank') return;
+      e.preventDefault();
+      document.body.classList.add('page-leaving');
+      setTimeout(function () {
+        window.location.href = link.href;
+      }, 350);
+    });
+
+
     /* ---- KEYBOARD ---- */
     document.addEventListener('keydown', function (e) {
 
-      /* ESC: chiude overlay oppure torna indietro */
       if (e.key === 'Escape') {
         if (overlay && overlay.classList.contains('is-aperto')) {
           chiudiOverlay();
           return;
         }
+        /* ESC su pagina opera: torna al portfolio */
+        const backLink = document.querySelector('a.back-btn');
+        if (backLink) { window.location.href = backLink.href; return; }
+        /* ESC altrove: torna indietro */
         if (document.referrer && document.referrer !== window.location.href) {
           window.history.back();
         } else {
@@ -210,13 +390,155 @@
         return;
       }
 
-      /* ← → naviga tra le opere (usa classi presenti in opera.html) */
+      /* ← → naviga tra le opere */
       const prevLink = document.querySelector('.opera-nav-link:not(.opera-nav-next)');
       const nextLink = document.querySelector('.opera-nav-next');
-
       if (e.key === 'ArrowLeft'  && prevLink) window.location.href = prevLink.href;
       if (e.key === 'ArrowRight' && nextLink) window.location.href = nextLink.href;
     });
+
+
+    /* ---- REQUEST INFORMATION (pagina opera) ---- */
+    const operaRequestBtn = document.getElementById('operaRequestBtn');
+    const operaTitle      = document.querySelector('.opera-title');
+
+    operaRequestBtn && operaRequestBtn.addEventListener('click', function () {
+      apriOverlay();
+      /* Precompila il messaggio con il titolo dell'opera */
+      const msgField = document.getElementById('contact-msg');
+      if (msgField && operaTitle && !msgField.value) {
+        msgField.value = 'I am interested in the work "' + operaTitle.textContent.trim() + '".';
+      }
+      /* Scrolla al form dopo l'apertura */
+      setTimeout(function () {
+        const form = document.getElementById('contactForm');
+        if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 400);
+    });
+
+
+    /* ---- FORM CONTATTI (Formspree AJAX) ---- */
+    const form     = document.getElementById('contactForm');
+    const feedback = document.getElementById('contactFeedback');
+    const submitBtn = document.getElementById('contactSubmit');
+
+    form && form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+      feedback.textContent = '';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          feedback.textContent = 'Message sent. Thank you.';
+          feedback.classList.remove('is-errore');
+          feedback.classList.add('is-ok');
+          form.reset();
+        } else {
+          throw new Error();
+        }
+      } catch (err) {
+        feedback.textContent = 'Something went wrong. Please try again.';
+        feedback.classList.add('is-errore');
+        feedback.classList.remove('is-ok');
+      }
+
+      submitBtn.textContent = 'Send';
+      submitBtn.disabled = false;
+    });
+
+
+    /* ---- PORTFOLIO: filtro categorie + contatore + load more ---- */
+    const filterBtns  = document.querySelectorAll('.portfolio-filter-btn');
+    const cards        = document.querySelectorAll('.portfolio-card');
+    const loadMoreBtn  = document.getElementById('loadMoreBtn');
+    const BATCH        = 8; /* opere per caricamento */
+    var   visibiliCorrente = []; /* carte visibili nella categoria attiva */
+    var   mostrate         = 0;  /* quante ne sono state mostrate */
+
+    if (filterBtns.length) {
+
+      function getCount(cat) {
+        return Array.from(cards).filter(function (c) {
+          return c.dataset.category === cat;
+        }).length;
+      }
+
+      /* Mostra il batch successivo di carte */
+      function mostraBatch() {
+        var prossime = visibiliCorrente.slice(mostrate, mostrate + BATCH);
+        prossime.forEach(function (card, i) {
+          card.style.display = '';
+          card.style.animation = 'none';
+          card.offsetHeight;
+          card.style.animation = '';
+          card.style.animationDelay = (i * 0.07) + 's';
+        });
+        mostrate += prossime.length;
+
+        /* Nasconde il pulsante se non ci sono altre opere */
+        if (loadMoreBtn) {
+          var rimaste = visibiliCorrente.length - mostrate;
+          loadMoreBtn.style.display = rimaste > 0 ? '' : 'none';
+          if (rimaste > 0) {
+            loadMoreBtn.textContent = 'Load more (' + rimaste + ')';
+          }
+        }
+      }
+
+      function filtra(cat) {
+        try { localStorage.setItem('lca-categoria', cat); } catch(e) {}
+
+        filterBtns.forEach(function (btn) {
+          const attivo = btn.dataset.category === cat;
+          btn.classList.toggle('is-active', attivo);
+          const countSpan = btn.querySelector('.filter-count');
+          if (countSpan) {
+            countSpan.textContent = attivo ? '(' + getCount(cat) + ')' : '';
+          }
+        });
+
+        /* Nascondi tutte le carte */
+        cards.forEach(function (card) { card.style.display = 'none'; });
+
+        /* Prepara la lista ordinata per la categoria */
+        visibiliCorrente = Array.from(cards).filter(function (c) {
+          return c.dataset.category === cat;
+        });
+        mostrate = 0;
+
+        /* Mostra il primo batch */
+        mostraBatch();
+      }
+
+      /* Leggi categoria salvata o usa ancora URL (#paintings ecc.) */
+      var catIniziale = 'Paintings';
+      try {
+        var saved = localStorage.getItem('lca-categoria');
+        var hash  = window.location.hash.replace('#', '');
+        /* L'ancora dal back-btn ha precedenza sul localStorage */
+        if (hash) {
+          var match = ['Paintings','Drawings','Video'].find(function(c){ return c.toLowerCase() === hash; });
+          if (match) catIniziale = match;
+        } else if (saved) {
+          catIniziale = saved;
+        }
+      } catch(e) {}
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () { filtra(btn.dataset.category); });
+      });
+
+      loadMoreBtn && loadMoreBtn.addEventListener('click', mostraBatch);
+
+      filtra(catIniziale);
+    }
   </script>
 
 </body>

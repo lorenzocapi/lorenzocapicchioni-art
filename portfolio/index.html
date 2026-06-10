@@ -4,17 +4,29 @@ title: Portfolio
 ---
 
 <section class="portfolio">
+
+  <!-- Filtro categorie + contatore -->
+  <nav class="portfolio-filters" aria-label="Filter by category">
+    <button class="portfolio-filter-btn" data-category="Paintings" aria-pressed="false">Paintings <span class="filter-count"></span></button>
+    <button class="portfolio-filter-btn" data-category="Drawings"  aria-pressed="false">Drawings <span class="filter-count"></span></button>
+    <button class="portfolio-filter-btn" data-category="Video"     aria-pressed="false">Video <span class="filter-count"></span></button>
+  </nav>
+
+  <!-- Griglia opere -->
   <div class="portfolio-grid">
-
     {% assign schede_ordinate = site.schede | sort: "year" | reverse %}
-
     {% for scheda in schede_ordinate %}
-    <a href="{{ scheda.url | relative_url }}" class="portfolio-card">
+    <a
+      href="{{ scheda.url | relative_url }}"
+      class="portfolio-card"
+      data-category="{{ scheda.category }}">
 
       <img
         class="portfolio-thumb"
         src="{{ scheda.cover | relative_url }}"
         alt="{{ scheda.alt | default: scheda.title }}"
+        width="720"
+        height="900"
         loading="lazy">
 
       <div class="portfolio-meta">
@@ -24,6 +36,13 @@ title: Portfolio
 
     </a>
     {% endfor %}
-
   </div>
+
+  <!-- Load more — nascosto finché non servono più di 8 opere -->
+  <div class="load-more-wrap">
+    <button class="load-more-btn" id="loadMoreBtn" style="display:none">
+      Load more
+    </button>
+  </div>
+
 </section>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lorenzocapi.github.io/lorenzocapicchioni-art/sitemap.xml

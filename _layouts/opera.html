@@ -10,6 +10,8 @@ layout: default
       src="{{ page.cover | relative_url }}"
       alt="{{ page.alt | default: page.title }}"
       class="opera-image"
+      width="{{ page.img_width | default: 1800 }}"
+      height="{{ page.img_height | default: 1200 }}"
       loading="eager">
     {% endif %}
   </div>
@@ -34,9 +36,12 @@ layout: default
       {% endif %}
 
       <div class="opera-contact">
-        <a href="mailto:studio@lorenzocapicchioniart.com?subject=Request%20Information%20%E2%80%94%20{{ page.title | url_encode }}">
+        <button
+          class="opera-request-btn"
+          id="operaRequestBtn"
+          aria-label="Request information about {{ page.title }}">
           Request Information
-        </a>
+        </button>
       </div>
 
     </div>
@@ -48,11 +53,6 @@ layout: default
     {% endif %}
   </div>
 
-  <!-- ============================================================
-       Navigazione prev / next
-       Scorre tutte le schede ordinate per anno.
-       Cicla: l'ultima rimanda alla prima e viceversa.
-       ============================================================ -->
   {% assign opere = site.schede | sort: "year" | reverse %}
 
   {% for opera in opere %}

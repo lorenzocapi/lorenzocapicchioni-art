@@ -51,8 +51,8 @@
         ← {{ page.category }}
       </a>
     {% else %}
-      <!-- Altre pagine: torna indietro generico -->
-      <button class="back-btn" id="backBtn" aria-label="Go back">← Back</button>
+      <!-- Altre pagine: link diretto alla home -->
+      <a href="{{ '/' | relative_url }}" class="back-btn" aria-label="Back to home">← Home</a>
     {% endif %}
 
     {% unless page.layout == "opera" %}
@@ -276,6 +276,9 @@
           <a href="https://instagram.com/_babylon.art" target="_blank" rel="noopener">
             @_babylon.art
           </a>
+          <a href="{{ '/note-legali/' | relative_url }}" class="info-legal-link">
+            Legal notes
+          </a>
         </div>
 
       </div>
@@ -306,7 +309,7 @@
     function apriOverlay() {
       overlay.classList.add('is-aperto');
       overlay.setAttribute('aria-hidden', 'false');
-      openInfo.setAttribute('aria-expanded', 'true');
+      if (openInfo) openInfo.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
       closeInfo.focus();
     }
@@ -314,9 +317,12 @@
     function chiudiOverlay() {
       overlay.classList.remove('is-aperto');
       overlay.setAttribute('aria-hidden', 'true');
-      openInfo.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
-      openInfo.focus();
+      document.body.classList.remove('page-leaving');
+      if (openInfo) {
+        openInfo.setAttribute('aria-expanded', 'false');
+        openInfo.focus();
+      }
     }
 
     openInfo  && openInfo.addEventListener('click', apriOverlay);
@@ -360,8 +366,10 @@
       const link = e.target.closest('a[href]');
       if (!link) return;
       const href = link.getAttribute('href');
-      /* Solo link interni, non mailto, non nuova scheda */
-      if (!href || href.startsWith('mailto:') || href.startsWith('http') || href.startsWith('//') || link.target === '_blank') return;
+      /* Solo link interni, non mailto, non nuova scheda, non ancore # */
+      if (!href || href.startsWith('mailto:') || href.startsWith('http') || href.startsWith('//') || href.startsWith('#') || link.target === '_blank') return;
+      /* Non fare fade se l'overlay è aperto */
+      if (overlay && overlay.classList.contains('is-aperto')) return;
       e.preventDefault();
       document.body.classList.add('page-leaving');
       setTimeout(function () {
@@ -404,16 +412,13 @@
 
     operaRequestBtn && operaRequestBtn.addEventListener('click', function () {
       apriOverlay();
+      /* Scroll in cima all'overlay */
+      overlay.scrollTop = 0;
       /* Precompila il messaggio con il titolo dell'opera */
       const msgField = document.getElementById('contact-msg');
       if (msgField && operaTitle && !msgField.value) {
         msgField.value = 'I am interested in the work "' + operaTitle.textContent.trim() + '".';
       }
-      /* Scrolla al form dopo l'apertura */
-      setTimeout(function () {
-        const form = document.getElementById('contactForm');
-        if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 400);
     });
 
 

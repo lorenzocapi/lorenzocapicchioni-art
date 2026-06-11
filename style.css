@@ -791,5 +791,25 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .page-opera .info-content {
-  padding-top: 80px;
+  padding-top: 60px;
 }
+
+/* link note legali nell'overlay — sempre visibile */
+.info-social {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-legal-link {
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  opacity: .35;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  align-self: flex-start;
+  transition: opacity .3s;
+}
+
+.info-legal-link:hover { opacity: .7; }

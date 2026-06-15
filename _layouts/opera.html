@@ -4,6 +4,7 @@ layout: default
 
 <article class="opera-page">
 
+  <!-- Immagine principale -->
   <div class="opera-media">
     {% if page.cover %}
     <img
@@ -16,24 +17,33 @@ layout: default
     {% endif %}
   </div>
 
+  <!-- Griglia dettagli orizzontale — visibile solo se ci sono immagini nel frontmatter -->
+  {% if page.dettagli and page.dettagli.size > 0 %}
+  <div class="opera-dettagli" aria-label="Detail images">
+    <div class="opera-dettagli__scroll" role="list">
+      {% for dettaglio in page.dettagli %}
+      <div class="opera-dettaglio" role="listitem">
+        <img
+          src="{{ dettaglio.src | relative_url }}"
+          alt="{{ dettaglio.alt | default: page.title }}"
+          class="opera-dettaglio__img"
+          loading="lazy">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Metadati e testo -->
   <div class="opera-details">
     <div class="opera-meta">
 
       <p class="opera-category">{{ page.category }}</p>
-
       <h1 class="opera-title">{{ page.title }}</h1>
 
-      {% if page.year %}
-      <p>Year · {{ page.year }}</p>
-      {% endif %}
-
-      {% if page.medium %}
-      <p>Medium · {{ page.medium }}</p>
-      {% endif %}
-
-      {% if page.dimensions %}
-      <p>Dimensions · {{ page.dimensions }}</p>
-      {% endif %}
+      {% if page.year %}<p>Year · {{ page.year }}</p>{% endif %}
+      {% if page.medium %}<p>Medium · {{ page.medium }}</p>{% endif %}
+      {% if page.dimensions %}<p>Dimensions · {{ page.dimensions }}</p>{% endif %}
 
       <div class="opera-contact">
         <button
@@ -47,22 +57,16 @@ layout: default
     </div>
 
     {% if content != "" %}
-    <div class="opera-text">
-      {{ content }}
-    </div>
+    <div class="opera-text">{{ content }}</div>
     {% endif %}
   </div>
 
+  <!-- Navigazione prev / next -->
   {% assign opere = site.schede | sort: "year" | reverse %}
-
   {% for opera in opere %}
-    {% if opera.url == page.url %}
-      {% assign current_index = forloop.index0 %}
-    {% endif %}
+    {% if opera.url == page.url %}{% assign current_index = forloop.index0 %}{% endif %}
   {% endfor %}
-
   {% assign last_index = opere.size | minus: 1 %}
-
   {% if current_index == 0 %}
     {% assign opera_precedente = opere[last_index] %}
     {% assign opera_successiva = opere[1] %}

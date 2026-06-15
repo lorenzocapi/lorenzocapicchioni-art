@@ -3,18 +3,10 @@ layout: default
 title: Lorenzo Capicchioni
 ---
 
-<!--
-  Il background-image NON può stare nel CSS quando c'è un baseurl
-  perché il CSS non conosce relative_url di Jekyll.
-  Lo passiamo come style inline: Jekyll sostituisce il filtro
-  prima che il file venga servito.
--->
 <section
   class="home-hero"
   style="background-image: url('{{ '/immagini/layout/home-background.webp' | relative_url }}')">
-
   <a href="{{ '/portfolio/' | relative_url }}" class="home-enter">
-    ENTER
+    Enter
   </a>
-
 </section>

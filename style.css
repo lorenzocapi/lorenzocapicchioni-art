@@ -127,7 +127,7 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--text);
   cursor: pointer;
   z-index: 300;
-  font-size: 14px;
+  font-size: 18px;
   transition: var(--transition);
 }
 
@@ -144,9 +144,19 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--text);
   opacity: 0;
   visibility: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   z-index: 250;
-  transition: .4s ease;
+  transition: opacity .4s ease, visibility .4s ease;
+}
+
+/* Wrapper scorrevole — unico elemento con overflow */
+.info-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .info-overlay.is-aperto {
@@ -178,6 +188,7 @@ img { display: block; max-width: 100%; height: auto; }
   max-width: 720px;
   margin: 0 auto;
   padding: 120px 60px;
+  box-sizing: border-box;
 }
 
 .info-meta {
@@ -246,7 +257,7 @@ img { display: block; max-width: 100%; height: auto; }
   position: relative;
   z-index: 2;
   color: white;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: .28em;
   text-transform: uppercase;
   transition: .35s;
@@ -431,7 +442,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .opera-meta p {
-  font-size: 14px;
+  font-size: 18px;
   opacity: .75;
   margin-bottom: 8px;
 }
@@ -525,7 +536,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .error-msg {
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: .18em;
   text-transform: uppercase;
   opacity: .45;
@@ -666,7 +677,7 @@ img { display: block; max-width: 100%; height: auto; }
    ===================== */
 
 .info-contact-intro {
-  font-size: 14px;
+  font-size: 18px;
   opacity: .6;
   margin-bottom: 32px;
   letter-spacing: .03em;
@@ -786,30 +797,282 @@ img { display: block; max-width: 100%; height: auto; }
    Nasconde bio, mostra solo form
    ===================== */
 
-.page-opera [data-mode="bio"] {
+.page-opera [data-bio] {
   display: none;
 }
 
 .page-opera .info-content {
-  padding-top: 60px;
+  padding-top: 40px;
 }
 
-/* link note legali nell'overlay — sempre visibile */
-.info-social {
+/* Link Instagram + note legali nell'overlay */
+.info-links {
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.info-legal-link {
-  font-size: 11px;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  opacity: .35;
+.info-links a {
+  font-size: 13px;
+  letter-spacing: .05em;
+  opacity: .5;
   border-bottom: 1px solid var(--border);
   padding-bottom: 2px;
   align-self: flex-start;
   transition: opacity .3s;
 }
 
-.info-legal-link:hover { opacity: .7; }
+.info-links a:hover { opacity: 1; }
+
+.info-links a:last-child {
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  opacity: .3;
+}
+
+/* =====================
+   OVERLAY — request trigger
+   ===================== */
+
+.info-request-wrap {
+  margin-top: 60px;
+}
+
+.info-request-trigger {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: .6;
+  padding: 0 0 3px;
+  border-bottom: 1px solid var(--border);
+  transition: opacity .3s;
+}
+
+.info-request-trigger:hover { opacity: 1; }
+
+/* Form collassato — animazione entrata */
+.info-form-wrap {
+  margin-top: 40px;
+  animation: fadeIn .4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =====================
+   OVERLAY — info links
+   ===================== */
+
+.info-links {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.info-links a {
+  font-size: 13px;
+  letter-spacing: .05em;
+  opacity: .5;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  align-self: flex-start;
+  transition: opacity .3s;
+}
+
+.info-links a:hover { opacity: 1; }
+
+.info-links a:last-child {
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  opacity: .3;
+}
+
+/* =====================
+   OVERLAY — modalità opera
+   ===================== */
+
+.page-opera [data-bio] { display: none; }
+.page-opera .info-content { padding-top: 40px; }
+
+/* =====================
+   HOME — ENTER più grande
+   ===================== */
+
+.home-enter {
+  font-size: clamp(16px, 3vw, 22px);
+  letter-spacing: .35em;
+}
+
+/* =====================
+   OVERLAY — bio-only
+   Nasconde elementi biografici su pagine opera
+   ===================== */
+
+.page-opera .bio-only { display: none; }
+
+/* =====================
+   OVERLAY — footer orizzontale
+   ===================== */
+
+.info-footer {
+  margin-top: 60px;
+  display: flex;
+  align-items: baseline;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+}
+
+.info-footer a {
+  font-size: 12px;
+  letter-spacing: .08em;
+  opacity: .45;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: opacity .3s;
+  white-space: nowrap;
+}
+
+.info-footer a:hover { opacity: 1; }
+
+.info-footer a:first-child {
+  font-size: 13px;
+  letter-spacing: .04em;
+}
+
+.info-footer a:last-of-type {
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  opacity: .3;
+}
+
+.info-footer__copy {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .25;
+  margin-left: auto;
+}
+
+@media (max-width: 480px) {
+  .info-footer { gap: 20px; }
+  .info-footer__copy { margin-left: 0; }
+}
+
+/* overflow gestito dal blocco principale .info-overlay */
+
+/* =====================
+   OVERLAY — logo nel form
+   ===================== */
+
+.info-form-logo {
+  margin-bottom: 32px;
+  opacity: .7;
+}
+
+/* =====================
+   OVERLAY — instagram separato
+   ===================== */
+
+.info-instagram {
+  margin-top: 48px;
+}
+
+.info-instagram a {
+  font-size: 12px;
+  letter-spacing: .08em;
+  opacity: .45;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: opacity .3s;
+}
+
+.info-instagram a:hover { opacity: 1; }
+
+/* =====================
+   OPERA — griglia dettagli
+   Scorrimento orizzontale sotto l'immagine principale
+   ===================== */
+
+.opera-dettagli {
+  width: 100%;
+  margin-top: 40px;
+  position: relative;
+  /* Indicatore visivo che c'è altro da scorrere */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 94%, transparent 100%);
+}
+
+.opera-dettagli__scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 40px 20px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  cursor: grab;
+}
+
+.opera-dettagli__scroll:active {
+  cursor: grabbing;
+}
+
+/* Nasconde scrollbar su WebKit */
+.opera-dettagli__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.opera-dettaglio {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  height: clamp(200px, 35vh, 400px);
+  overflow: hidden;
+  background: var(--colore-sfondo-elevato, #141414);
+}
+
+[data-theme="light"] .opera-dettaglio {
+  background: #ece8df;
+}
+
+.opera-dettaglio__img {
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  transition: opacity .4s ease;
+  /* Impedisce drag accidentale */
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+.opera-dettaglio:hover .opera-dettaglio__img {
+  opacity: .85;
+}
+
+/* Mobile: altezza ridotta */
+@media (max-width: 768px) {
+  .opera-dettagli__scroll {
+    padding: 0 20px 16px;
+    gap: 8px;
+  }
+
+  .opera-dettaglio {
+    height: clamp(140px, 28vw, 240px);
+  }
+}

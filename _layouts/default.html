@@ -66,95 +66,12 @@
        Aperto da: #openInfo (portfolio/altre)
        Aperto da: #operaRequestBtn (opera)
        ===================== -->
-  <div class="info-overlay" id="infoOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <dialog class="info-overlay" id="infoOverlay" aria-label="Artist information">
     <div class="info-scroll" id="infoScroll">
     <div class="info-content">
 
       <!-- Bio — nascosta su pagine opera -->
-      <div class="info-logo bio-only" aria-hidden="true">
-        <svg class="info-logo-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100" height="100">
-          <defs>
-            <filter id="stamp-logo" x="-10%" y="-10%" width="120%" height="120%">
-              <feTurbulence type="turbulence" baseFrequency="0.038" numOctaves="4" seed="12" result="noise"/>
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.8" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
-              <feMorphology in="displaced" operator="erode" radius="0.5" result="eroded"/>
-              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="5" result="grain"/>
-              <feComposite in="eroded" in2="grain" operator="in"/>
-            </filter>
-            <clipPath id="circleClip-logo"><circle cx="200" cy="200" r="184"/></clipPath>
-          </defs>
-          <g filter="url(#stamp-logo)">
-            <circle cx="200" cy="200" r="185" fill="none" stroke="currentColor" stroke-width="9"/>
-            <g fill="currentColor" clip-path="url(#circleClip-logo)">
-              <g transform="rotate(0 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(15 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(30 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(45 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(60 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(75 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(90 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(105 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(120 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(135 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(150 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(165 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(180 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(195 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(210 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(225 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(240 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(255 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(270 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(285 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(300 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(315 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-              <g transform="rotate(330 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
-              <g transform="rotate(345 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
-            </g>
-            <g fill="currentColor" stroke="currentColor" stroke-linecap="round">
-              <circle cx="200" cy="88" r="13" fill="none" stroke="currentColor" stroke-width="6"/>
-              <circle cx="200" cy="88" r="4.5"/>
-              <line x1="200" y1="68" x2="200" y2="61" stroke-width="5"/>
-              <line x1="200" y1="108" x2="200" y2="115" stroke-width="5"/>
-              <line x1="180" y1="88" x2="173" y2="88" stroke-width="5"/>
-              <line x1="220" y1="88" x2="227" y2="88" stroke-width="5"/>
-              <line x1="186" y1="74" x2="181" y2="69" stroke-width="4.5"/>
-              <line x1="214" y1="74" x2="219" y2="69" stroke-width="4.5"/>
-              <line x1="186" y1="102" x2="181" y2="107" stroke-width="4.5"/>
-              <line x1="214" y1="102" x2="219" y2="107" stroke-width="4.5"/>
-            </g>
-            <g fill="currentColor">
-              <rect x="108" y="258" width="184" height="20" rx="2"/>
-              <rect x="120" y="236" width="160" height="24" rx="2"/>
-              <rect x="134" y="214" width="132" height="24" rx="2"/>
-              <rect x="148" y="193" width="104" height="23" rx="2"/>
-              <rect x="161" y="173" width="78" height="22" rx="2"/>
-              <rect x="174" y="154" width="52" height="21" rx="2"/>
-              <rect x="183" y="132" width="34" height="24" rx="2"/>
-              <polygon points="179,132 200,114 221,132"/>
-              <rect x="192" y="141" width="16" height="15" rx="1" fill="var(--bg)"/>
-              <rect x="192" y="154" width="16" height="21" fill="var(--bg)"/>
-              <rect x="192" y="173" width="16" height="22" fill="var(--bg)"/>
-              <rect x="192" y="193" width="16" height="23" fill="var(--bg)"/>
-              <rect x="192" y="214" width="16" height="24" fill="var(--bg)"/>
-              <rect x="192" y="236" width="16" height="24" fill="var(--bg)"/>
-              <rect x="132" y="241" width="13" height="13" rx="1" fill="var(--bg)"/>
-              <rect x="255" y="241" width="13" height="13" rx="1" fill="var(--bg)"/>
-              <rect x="145" y="219" width="11" height="11" rx="1" fill="var(--bg)"/>
-              <rect x="244" y="219" width="11" height="11" rx="1" fill="var(--bg)"/>
-              <rect x="158" y="198" width="10" height="10" rx="1" fill="var(--bg)"/>
-              <rect x="232" y="198" width="10" height="10" rx="1" fill="var(--bg)"/>
-              <rect x="170" y="178" width="9" height="9" rx="1" fill="var(--bg)"/>
-              <rect x="221" y="178" width="9" height="9" rx="1" fill="var(--bg)"/>
-            </g>
-            <text x="76" y="232" font-family="'Courier New', Courier, monospace" font-size="92" font-weight="900" fill="currentColor" text-anchor="middle">L</text>
-            <text x="324" y="232" font-family="'Courier New', Courier, monospace" font-size="92" font-weight="900" fill="currentColor" text-anchor="middle">C</text>
-            <line x1="156" y1="291" x2="244" y2="291" stroke="currentColor" stroke-width="4" stroke-linecap="square"/>
-            <text x="200" y="313" font-family="'Courier New', Courier, monospace" font-size="22" font-weight="900" fill="currentColor" text-anchor="middle" letter-spacing="13">ART</text>
-            <line x1="156" y1="320" x2="244" y2="320" stroke="currentColor" stroke-width="4" stroke-linecap="square"/>
-          </g>
-        </svg>
-      </div>
+      
 
       <div class="info-meta bio-only">
         <p>From: Lorenzo Capicchioni</p>
@@ -189,7 +106,7 @@
       <div class="info-form-wrap" id="infoForm" hidden>
         <!-- Logo piccolo nel form -->
         <div class="info-form-logo" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="60" height="60">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="160" height="160">
             <defs>
               <filter id="stamp-form" x="-10%" y="-10%" width="120%" height="120%">
                 <feTurbulence type="turbulence" baseFrequency="0.038" numOctaves="4" seed="12" result="noise"/>
@@ -198,36 +115,88 @@
                 <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="5" result="grain"/>
                 <feComposite in="eroded" in2="grain" operator="in"/>
               </filter>
-              <clipPath id="cc-form"><circle cx="200" cy="200" r="184"/></clipPath>
+              <clipPath id="circleClip-form">
+                <circle cx="200" cy="200" r="184"/>
+              </clipPath>
             </defs>
+          
+          
             <g filter="url(#stamp-form)">
               <circle cx="200" cy="200" r="185" fill="none" stroke="currentColor" stroke-width="9"/>
-              <g fill="currentColor" clip-path="url(#cc-form)">
-                <g transform="rotate(0 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/></g>
-                <g transform="rotate(45 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/></g>
-                <g transform="rotate(90 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/></g>
-                <g transform="rotate(135 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/></g>
-                <g transform="rotate(180 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/></g>
-                <g transform="rotate(225 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/></g>
-                <g transform="rotate(270 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/></g>
-                <g transform="rotate(315 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/></g>
+          
+              <g fill="currentColor" clip-path="url(#circleClip-form)">
+                <g transform="rotate(0 200 200)">  <rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(15 200 200)"> <rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(30 200 200)"> <rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(45 200 200)"> <rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(60 200 200)"> <rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(75 200 200)"> <rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(90 200 200)"> <rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(105 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(120 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(135 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(150 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(165 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(180 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(195 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(210 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(225 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(240 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(255 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(270 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(285 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(300 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(315 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
+                <g transform="rotate(330 200 200)"><rect x="194" y="18" width="5" height="16"/><rect x="194" y="18" width="14" height="5"/><rect x="203" y="23" width="5" height="11"/><rect x="197" y="29" width="11" height="5"/></g>
+                <g transform="rotate(345 200 200)"><rect x="201" y="18" width="5" height="16"/><rect x="192" y="18" width="14" height="5"/><rect x="192" y="23" width="5" height="11"/><rect x="192" y="29" width="11" height="5"/></g>
               </g>
+          
+              <!-- SOLE -->
+              <g fill="currentColor" stroke="currentColor" stroke-linecap="round">
+                <circle cx="200" cy="88" r="13" fill="none" stroke="currentColor" stroke-width="6"/>
+                <circle cx="200" cy="88" r="4.5" fill="currentColor"/>
+                <line x1="200" y1="68" x2="200" y2="61" stroke-width="5"/>
+                <line x1="200" y1="108" x2="200" y2="115" stroke-width="5"/>
+                <line x1="180" y1="88" x2="173" y2="88" stroke-width="5"/>
+                <line x1="220" y1="88" x2="227" y2="88" stroke-width="5"/>
+                <line x1="186" y1="74" x2="181" y2="69" stroke-width="4.5"/>
+                <line x1="214" y1="74" x2="219" y2="69" stroke-width="4.5"/>
+                <line x1="186" y1="102" x2="181" y2="107" stroke-width="4.5"/>
+                <line x1="214" y1="102" x2="219" y2="107" stroke-width="4.5"/>
+              </g>
+          
+              <!-- TORRE -->
               <g fill="currentColor">
+                <rect x="108" y="258" width="184" height="20" rx="2"/>
+                <rect x="120" y="236" width="160" height="24" rx="2"/>
                 <rect x="134" y="214" width="132" height="24" rx="2"/>
                 <rect x="148" y="193" width="104" height="23" rx="2"/>
                 <rect x="161" y="173" width="78" height="22" rx="2"/>
                 <rect x="174" y="154" width="52" height="21" rx="2"/>
                 <rect x="183" y="132" width="34" height="24" rx="2"/>
                 <polygon points="179,132 200,114 221,132"/>
-                <rect x="192" y="141" width="16" height="30" rx="1" fill="var(--bg)"/>
+                <rect x="192" y="141" width="16" height="15" rx="1" fill="var(--bg)"/>
+                <rect x="192" y="154" width="16" height="21" fill="var(--bg)"/>
                 <rect x="192" y="173" width="16" height="22" fill="var(--bg)"/>
                 <rect x="192" y="193" width="16" height="23" fill="var(--bg)"/>
                 <rect x="192" y="214" width="16" height="24" fill="var(--bg)"/>
+                <rect x="192" y="236" width="16" height="24" fill="var(--bg)"/>
+                <rect x="132" y="241" width="13" height="13" rx="1" fill="var(--bg)"/>
+                <rect x="255" y="241" width="13" height="13" rx="1" fill="var(--bg)"/>
+                <rect x="145" y="219" width="11" height="11" rx="1" fill="var(--bg)"/>
+                <rect x="244" y="219" width="11" height="11" rx="1" fill="var(--bg)"/>
+                <rect x="158" y="198" width="10" height="10" rx="1" fill="var(--bg)"/>
+                <rect x="232" y="198" width="10" height="10" rx="1" fill="var(--bg)"/>
+                <rect x="170" y="178" width="9" height="9" rx="1" fill="var(--bg)"/>
+                <rect x="221" y="178" width="9" height="9" rx="1" fill="var(--bg)"/>
               </g>
-              <text x="76" y="232" font-family="'Courier New', Courier, monospace" font-size="92" font-weight="900" fill="currentColor" text-anchor="middle">L</text>
-              <text x="324" y="232" font-family="'Courier New', Courier, monospace" font-size="92" font-weight="900" fill="currentColor" text-anchor="middle">C</text>
+          
+              <!-- linea sopra ART -->
               <line x1="156" y1="291" x2="244" y2="291" stroke="currentColor" stroke-width="4" stroke-linecap="square"/>
-              <text x="200" y="313" font-family="'Courier New', Courier, monospace" font-size="22" font-weight="900" fill="currentColor" text-anchor="middle" letter-spacing="13">ART</text>
+              <!-- ART -->
+              <text x="200" y="313" font-family="'Courier New', Courier, monospace"
+                    font-size="22" font-weight="900" fill="currentColor" text-anchor="middle" letter-spacing="13">ART</text>
+              <!-- linea sotto ART -->
               <line x1="156" y1="320" x2="244" y2="320" stroke="currentColor" stroke-width="4" stroke-linecap="square"/>
             </g>
           </svg>
@@ -271,7 +240,7 @@
 
     </div><!-- /info-content -->
     </div><!-- /info-scroll -->
-  </div><!-- /info-overlay -->
+  </dialog><!-- /info-overlay -->
 
 
   <script>
@@ -282,17 +251,22 @@
     var infoScroll  = document.getElementById('infoScroll');
 
     function apriOverlay() {
-      if (infoScroll) infoScroll.scrollTop = 0;
+      overlay.showModal();
       overlay.classList.add('is-aperto');
-      overlay.setAttribute('aria-hidden', 'false');
       if (openInfo) openInfo.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
-      setTimeout(function(){ closeInfo.focus(); }, 50);
+      /* Reset scroll DOPO che il dialog è visibile e renderizzato */
+      if (infoScroll) {
+        infoScroll.scrollTop = 0;
+        requestAnimationFrame(function(){
+          infoScroll.scrollTop = 0;
+        });
+      }
     }
 
     function chiudiOverlay() {
+      overlay.close();
       overlay.classList.remove('is-aperto');
-      overlay.setAttribute('aria-hidden', 'true');
       if (openInfo) { openInfo.setAttribute('aria-expanded', 'false'); openInfo.focus(); }
       document.body.style.overflow = '';
       document.body.classList.remove('page-leaving');
@@ -327,7 +301,13 @@
         infoRequestTrigger.setAttribute('aria-expanded', 'true');
         infoRequestTrigger.style.display = 'none';
       }
-      if (infoScroll) infoScroll.scrollTop = 0;
+      /* Precompila messaggio generico se vuoto (portfolio/altre pagine) */
+      var msgField = document.getElementById('contact-msg');
+      if (msgField && !msgField.value) {
+        msgField.value = 'I am interested in your work and would like more information.';
+      }
+      /* Nessun reset di scroll: il form si espande nel punto dove l'utente
+         si trova già, senza saltare in cima alla pagina */
     }
 
     infoRequestTrigger && infoRequestTrigger.addEventListener('click', apriForm);
@@ -527,6 +507,23 @@
       loadMoreBtn && loadMoreBtn.addEventListener('click', mostraBatch);
       filtra(catIniziale);
     }
+
+
+    /* ---- BACK/FORWARD BROWSER — ripristina stato pulito ----
+       Quando si naviga con i tasti indietro/avanti del browser, alcune
+       pagine vengono ripristinate dalla bfcache con lo stato JS
+       "congelato" in un momento precedente. Se l'overlay era aperto
+       (dialog "open") il browser può ririsegnarlo in uno stato
+       inconsistente e bloccare la pagina. Su pageshow forziamo sempre
+       un reset pulito. */
+    window.addEventListener('pageshow', function(e){
+      if (overlay && overlay.hasAttribute('open')) {
+        try { overlay.close(); } catch(err) {}
+      }
+      if (overlay) overlay.classList.remove('is-aperto');
+      document.body.classList.remove('page-leaving');
+      document.body.style.overflow = '';
+    });
   </script>
 
 </body>

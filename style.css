@@ -137,11 +137,19 @@ img { display: block; max-width: 100%; height: auto; }
    INFO OVERLAY
    ===================== */
 
+/* dialog nativo — gestisce scroll e focus automaticamente */
 .info-overlay {
   position: fixed;
   inset: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
   background: var(--bg);
   color: var(--text);
+  border: none;
+  padding: 0;
+  margin: 0;
   opacity: 0;
   visibility: hidden;
   overflow: hidden;
@@ -149,19 +157,32 @@ img { display: block; max-width: 100%; height: auto; }
   transition: opacity .4s ease, visibility .4s ease;
 }
 
-/* Wrapper scorrevole — unico elemento con overflow */
+.info-overlay[open] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Backdrop nativo del dialog */
+.info-overlay::backdrop {
+  display: none;
+}
+
+/* Wrapper scorrevole interno */
 .info-scroll {
   position: absolute;
   inset: 0;
   overflow-y: scroll;
   overflow-x: hidden;
-  scroll-behavior: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .info-overlay.is-aperto {
   opacity: 1;
   visibility: visible;
+}
+
+[data-theme="light"] .info-overlay {
+  background: var(--bg);
 }
 
 .info-close-wrap {
@@ -978,8 +999,16 @@ img { display: block; max-width: 100%; height: auto; }
    ===================== */
 
 .info-form-logo {
-  margin-bottom: 32px;
-  opacity: .7;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.info-form-logo svg {
+  width: 160px;
+  height: 160px;
+  opacity: .85;
 }
 
 /* =====================

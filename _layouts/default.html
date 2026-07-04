@@ -221,12 +221,18 @@
       </div>
 
       <!-- Instagram — riga separata -->
-      <div class="info-instagram">
-        <a href="https://instagram.com/_babylon.art" target="_blank" rel="noopener">@_babylon.art</a>
+      <div class="info-instagram bio-only">
+        <a href="https://instagram.com/_babylon.art" target="_blank" rel="noopener" aria-label="Instagram @_babylon.art" class="info-instagram__link">
+          <svg class="info-instagram__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
       </div>
 
       <!-- Footer orizzontale — Legal notes + Copyright -->
-      <div class="info-footer">
+      <div class="info-footer bio-only">
         <a href="{{ '/note-legali/' | relative_url }}">Legal notes</a>
         <span class="info-footer__copy bio-only">© {{ site.time | date: "%Y" }} Lorenzo Capicchioni</span>
       </div>
@@ -419,9 +425,11 @@
     if (scrollEl) {
       var isDragging = false;
       var startX, scrollLeft;
+      var dragMoved = false;
 
       scrollEl.addEventListener('mousedown', function(e){
         isDragging = true;
+        dragMoved = false;
         startX = e.pageX - scrollEl.offsetLeft;
         scrollLeft = scrollEl.scrollLeft;
       });
@@ -436,10 +444,79 @@
 
       scrollEl.addEventListener('mousemove', function(e){
         if (!isDragging) return;
-        e.preventDefault();
         var x = e.pageX - scrollEl.offsetLeft;
         var walk = (x - startX) * 1.2;
+        if (Math.abs(walk) > 5) dragMoved = true;
+        e.preventDefault();
         scrollEl.scrollLeft = scrollLeft - walk;
+      });
+    }
+
+
+    /* ---- CLICK SU MINIATURA — sostituisce immagine principale ---- */
+    var mainImage = document.querySelector('.opera-image');
+    var thumbs    = document.querySelectorAll('.opera-dettaglio__img');
+
+    if (mainImage && thumbs.length) {
+      thumbs.forEach(function(thumb) {
+        thumb.parentElement.style.cursor = 'pointer';
+
+        thumb.parentElement.addEventListener('click', function(e) {
+          if (dragMoved) return;
+
+          var newSrc = thumb.getAttribute('src');
+          var newAlt = thumb.getAttribute('alt');
+
+          mainImage.style.opacity = '0';
+          mainImage.style.transition = 'opacity .25s ease';
+
+          setTimeout(function(){
+            mainImage.setAttribute('src', newSrc);
+            mainImage.setAttribute('alt', newAlt);
+            mainImage.style.opacity = '1';
+          }, 250);
+
+          thumbs.forEach(function(t){
+            t.parentElement.classList.remove('is-attiva');
+          });
+          thumb.parentElement.classList.add('is-attiva');
+        });
+      });
+    }
+
+
+    /* ---- LIGHTBOX — apre immagine principale a schermo intero ---- */
+    if (mainImage) {
+      /* Crea lightbox nel DOM */
+      var lb = document.createElement('dialog');
+      lb.className = 'lightbox';
+      lb.setAttribute('aria-label', 'Full size image');
+      lb.innerHTML = '<img class="lightbox__img" src="" alt=""><button class="lightbox__close" aria-label="Close">×</button>';
+      document.body.appendChild(lb);
+
+      var lbImg   = lb.querySelector('.lightbox__img');
+      var lbClose = lb.querySelector('.lightbox__close');
+
+      function apriLightbox() {
+        lbImg.setAttribute('src', mainImage.getAttribute('src'));
+        lbImg.setAttribute('alt', mainImage.getAttribute('alt'));
+        lb.showModal();
+        lb.classList.add('is-aperto');
+      }
+
+      function chiudiLightbox() {
+        lb.close();
+        lb.classList.remove('is-aperto');
+      }
+
+      mainImage.style.cursor = 'zoom-in';
+      mainImage.addEventListener('click', apriLightbox);
+      lbClose.addEventListener('click', chiudiLightbox);
+      lb.addEventListener('click', function(e){
+        if (e.target === lb) chiudiLightbox();
+      });
+      lb.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') chiudiLightbox();
       });
     }
 
